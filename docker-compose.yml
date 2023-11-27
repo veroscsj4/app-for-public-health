@@ -1,26 +1,67 @@
+# version: '1'
+# services:
+#   bowtie-index:
+#     image: biocontainers/bowtie2:v2.4.1_cv1
+#     volumes:
+#       - .:/data
+#     command: bowtie2-build GCA_000001405.15_GRCh38_genomic.fasta /data/reference_index
+#     platform: linux/amd64
+
+#   wgsim:
+#     image: pegi3s/wgsim
+#     depends_on:
+#       - bowtie-index
+#     volumes:
+#       - .:/data
+#     command: >
+#       wgsim -e 0 -1 100 -2 100 -r 0.001 -R 0 -X 0 -d 300 -N 10000 -s 50 
+#       GCA_000001405.15_GRCh38_genomic.fasta /data/read1.fq /data/read2.fq
+#     platform: linux/amd64
+
+#   fastp:
+#     image: biocontainers/fastp:v0.20.1_cv1
+#     depends_on:
+#       - wgsim
+#     volumes:
+#       - .:/data
+#     command: fastp --in1 read1.fq --in2 read2.fq --out1 /data/output1.fastq --out2 /data/output2.fastq
+#     platform: linux/amd64
+
+#   bowtie2:
+#     image: biocontainers/bowtie2:v2.4.1_cv1
+#     depends_on:
+#       - fastp
+#     volumes:
+#       - .:/data
+#     command: bowtie2 -x /data/reference_index -1 /data/output1.fastq -2 /data/output2.fastq -S /data/output.sam
+#     platform: linux/amd64
+
+#   samtools:
+#     # image: biocontainers/samtools
+#     image: ljishen/samtools
+#     depends_on:
+#       - bowtie2 
+#     volumes:
+#       - .:/data
+#     command: >
+#       sh -c "samtools view -bS /data/output.sam > /data/output.bam &&
+#             samtools sort /data/output.bam -o /data/sorted_output.bam &&
+#             samtools index /data/sorted_output.bam"
+#     platform: linux/amd64
+
+#   freebayes:
+#     image: biocontainers/freebayes:v1.2.0-2-deb_cv1
+#     depends_on:
+#       - bowtie2
+#     volumes:
+#       - .:/data
+#     command: sh -c "freebayes -f /data/reference.fa /data/input.bam > /data/output.vcf"
+#     platform: linux/amd64
+
 version: '1'
 services:
-  fastp:
-    image: biocontainers/fastp:v0.20.1_cv1
+  pipeline:
+    build: .
     volumes:
       - .:/data
-    command: fastp --in1 /data/input.fastq --out1 /data/output.fastq
-    platform: linux/amd64
 
-  bowtie2:
-    image: biocontainers/bowtie2:v2.4.1_cv1
-    depends_on:
-      - fastp
-    volumes:
-      - .:/data
-    command: bowtie2 -x /data/index -1 /data/output.fastq -2 /data/output_r2.fastq -S /data/output.sam
-    platform: linux/amd64
-
-  freebayes:
-    image: biocontainers/freebayes:v1.2.0-2-deb_cv1
-    depends_on:
-      - bowtie2
-    volumes:
-      - .:/data
-    command: sh -c "freebayes -f /data/reference.fa /data/input.bam > /data/output.vcf"
-    platform: linux/amd64
