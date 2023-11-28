@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app_for_public_health/src/authentification/screens/welcome/login.dart';
 import 'package:mobile_app_for_public_health/src/constants/styles.dart';
 import '../../../constants/img_path.dart';
+import 'package:get/get.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -10,18 +12,12 @@ class WelcomePage extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(defaultSize),
-        
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image(image: AssetImage(welcomePNG), height: height * 0.5),
             Column(
               children: [
-                Text(
-                  "Willkommen",
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  textAlign: TextAlign.center,
-                ),
                 Text(
                   "Willkommen",
                   style: Theme.of(context).textTheme.bodyLarge,
@@ -38,32 +34,34 @@ class WelcomePage extends StatelessWidget {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                      onPressed: () {},
-                      style: OutlinedButton.styleFrom(
-                        shape: RoundedRectangleBorder(),
-                        foregroundColor: primaryColor,
-                        backgroundColor: whiteColor,
-                        side:BorderSide(color: primaryColor ),
-                        padding: EdgeInsets.symmetric(vertical: buttonHeight),
-                      ), 
-                      child: Text("Anmelden".toUpperCase()),
-                      ),
+                    onPressed: () {
+                      Get.to(()=>LoginScreen());
+                    },
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(),
+                      foregroundColor: primaryColor,
+                      backgroundColor: whiteColor,
+                      side: BorderSide(color: primaryColor),
+                      padding: EdgeInsets.symmetric(vertical: buttonHeight),
+                    ),
+                    child: Text("Anmelden".toUpperCase()),
+                  ),
                 ),
                 const SizedBox(
                   width: 10.0,
                 ),
                 Expanded(
-
                   child: ElevatedButton(
                       onPressed: () {},
                       style: OutlinedButton.styleFrom(
                         shape: RoundedRectangleBorder(),
                         foregroundColor: whiteColor,
                         backgroundColor: primaryColor,
-                        side:BorderSide(color: primaryColor),
+                        side: BorderSide(color: primaryColor),
                         padding: EdgeInsets.symmetric(vertical: buttonHeight),
-                      ), 
-                      child: Text("Registrieren".toUpperCase())),
+                      ),
+                      child: Text("Registrieren".toUpperCase())
+                  ),
                 ),
               ],
             )
