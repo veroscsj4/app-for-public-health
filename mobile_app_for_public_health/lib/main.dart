@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'src/authentification/screens/welcome/welcome.dart';
 import 'src/constants/styles.dart';
+import 'package:get/get.dart';
+
 
 
 void main() {
@@ -11,9 +13,10 @@ class App extends StatelessWidget{
   
   @override
   Widget build(BuildContext context){
-    return MaterialApp(
+    return GetMaterialApp(
       theme: AppTheme.lightTheme,
       home: WelcomePage(),
+      //home: LoginScreen(),
     );
   }
 }
