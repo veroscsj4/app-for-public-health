@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'genome.dart';
 
-const DUMMY_GENOME = const [
+const DUMMY_GENOME = [
   Genome(
     id: 'g1',
     genome: 'genome1',

@@ -3,11 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 /* List of Colors */
 
-const primaryColor = Color(0xFF565ACF); 
+const primaryColor = Color(0xFF565ACF);
 const secondaryColor = Color(0xFFF17732);
 const blackColor = Color(0xFF000000);
 const whiteColor = Color(0xFFFFFFFF);
-const textColor = Color(0xFF444444); 
+const textColor = Color(0xFF444444);
 const titleColor = Color(0xFF1F2278);
 
 /* Sizes */
@@ -26,9 +26,8 @@ class AppTheme {
         fontSize: 45,
         fontWeight: FontWeight.bold,
       ),
-      labelSmall: GoogleFonts.poppins(
-        color: textColor,
-        fontSize: 30), 
+      labelSmallWhite: GoogleFonts.poppins(color: whiteColor, fontSize: 30),
+      labelSmall: GoogleFonts.poppins(color: textColor, fontSize: 30),
     ),
   );
 }

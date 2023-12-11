@@ -11,11 +11,11 @@ class WelcomePage extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(defaultSize),
+        padding: const EdgeInsets.all(defaultSize),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image(image: AssetImage(welcomePNG), height: height * 0.5),
+            Image(image: const AssetImage(welcomePNG), height: height * 0.5),
             Column(
               children: [
                 Text(
@@ -35,14 +35,14 @@ class WelcomePage extends StatelessWidget {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () {
-                      Get.to(()=>LoginScreen());
+                      Get.to(()=>const LoginScreen());
                     },
                     style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(),
+                      shape: const RoundedRectangleBorder(),
                       foregroundColor: primaryColor,
                       backgroundColor: whiteColor,
-                      side: BorderSide(color: primaryColor),
-                      padding: EdgeInsets.symmetric(vertical: buttonHeight),
+                      side: const BorderSide(color: primaryColor),
+                      padding: const EdgeInsets.symmetric(vertical: buttonHeight),
                     ),
                     child: Text("Anmelden".toUpperCase()),
                   ),
@@ -54,11 +54,11 @@ class WelcomePage extends StatelessWidget {
                   child: ElevatedButton(
                       onPressed: () {},
                       style: OutlinedButton.styleFrom(
-                        shape: RoundedRectangleBorder(),
+                        shape: const RoundedRectangleBorder(),
                         foregroundColor: whiteColor,
                         backgroundColor: primaryColor,
-                        side: BorderSide(color: primaryColor),
-                        padding: EdgeInsets.symmetric(vertical: buttonHeight),
+                        side: const BorderSide(color: primaryColor),
+                        padding: const EdgeInsets.symmetric(vertical: buttonHeight),
                       ),
                       child: Text("Registrieren".toUpperCase())
                   ),

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class Genome {
   final String id;
