@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_for_public_health/src/constants/styles.dart';
 import 'package:mobile_app_for_public_health/src/screens/main/home_page.dart';
 import 'package:get/get.dart';
 

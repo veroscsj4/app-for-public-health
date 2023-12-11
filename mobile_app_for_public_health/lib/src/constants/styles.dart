@@ -38,32 +38,32 @@ class AppTheme {
       ),
       headlineLarge: GoogleFonts.montserrat(
         color: titleColor,
-        fontSize: 50,
+        fontSize: 38,
         fontWeight: FontWeight.bold,
       ),
       headlineMedium: GoogleFonts.montserrat(
         color: titleColor,
-        fontSize: 45,
+        fontSize: 32,
         fontWeight: FontWeight.bold,
       ),
       headlineSmall: GoogleFonts.montserrat(
         color: titleColor,
-        fontSize: 40,
+        fontSize: 30,
         fontWeight: FontWeight.bold,
       ),
       titleLarge: GoogleFonts.montserrat(
         color: titleColor,
-        fontSize: 45,
+        fontSize: 36,
         fontWeight: FontWeight.bold,
       ),
       titleMedium: GoogleFonts.montserrat(
         color: titleColor,
-        fontSize: 40,
+        fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
       titleSmall: GoogleFonts.montserrat(
         color: titleColor,
-        fontSize: 35,
+        fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
       labelLarge: GoogleFonts.poppins(color: textColor, fontSize: 40),
@@ -72,11 +72,11 @@ class AppTheme {
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(),
-        side: BorderSide(color: primaryColor),
+        shape: const RoundedRectangleBorder(),
+        side: const BorderSide(color: primaryColor),
         backgroundColor: whiteColor,
-        padding: EdgeInsets.symmetric(vertical: buttonHeight),
-        textStyle: TextStyle(fontSize: 15, fontFamily: 'poppins'),
+        padding: const EdgeInsets.symmetric(vertical: buttonHeight),
+        textStyle: const TextStyle(fontSize: 15, fontFamily: 'poppins'),
         foregroundColor: primaryColor,
       ),
     ),
@@ -87,7 +87,7 @@ class AppTheme {
       backgroundColor: primaryColor,
       side: const BorderSide(color: primaryColor),
       padding: const EdgeInsets.symmetric(vertical: buttonHeight),
-      textStyle: TextStyle(fontSize: 15, fontFamily: 'poppins'),
+      textStyle: const TextStyle(fontSize: 15, fontFamily: 'poppins'),
       ),
     ),
   );

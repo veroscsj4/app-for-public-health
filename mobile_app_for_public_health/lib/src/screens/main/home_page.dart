@@ -1,4 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
+
+Future<List<GeneVariant>> loadGeneVariants() async {
+  try {
+    String jsonString = await rootBundle.loadString('./src/data/drug.json');
+    List<dynamic> jsonList = json.decode(jsonString);
+    print('hier');
+    return jsonList.map((json) => GeneVariant.fromJson(json)).toList();
+  } catch (error) {
+    print('Error loading gene variants: $error');
+    return [];
+  }
+}
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -8,6 +23,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late final List<GeneVariant> geneVariants;
+
+  @override
+  void initState() {
+    print('hier sind wir');
+    super.initState();
+    geneVariants = [];
+    loadGeneVariants().then((variants) {
+      setState(() {
+        geneVariants = variants;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +51,10 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(width: 10.0),
             Text(
               'Hallo Mustermann',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.white),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: Colors.white),
               textAlign: TextAlign.center,
             ),
           ],
@@ -34,38 +66,67 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Display User's Name at the Top
-            const Text(
-              'Welcome, Mustermann!',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
+            Text(
+              'Deine genetischen Variationen sind:',
+              style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: 16.0),
-            const Text(
+            Text(
               'Hier können Sie die Liste der Medikamente finden, die mit Ihren genetischen Variationen unverträglich sein könnten, zusammen mit den dazugehörigen Nebenwirkungen.',
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             // Table with Information
             DataTable(
-              columns: const [
-                DataColumn(label: Text('Medikamente')),
-                DataColumn(label: Text('Information')),
+              columns: [
+                DataColumn(
+                  label: Text(
+                    'Genetische Variation',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Medikamente',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Information',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
               ],
-              rows: const [
-                DataRow(cells: [
-                  DataCell(Text('Name')),
-                  DataCell(Text('John Doe')),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('Age')),
-                  DataCell(Text('30')),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('Location')),
-                  DataCell(Text('City')),
-                ]),
-                // Add more rows as needed
-              ],
+              rows: geneVariants.map(
+                (geneVariant) => DataRow(
+                  cells: [
+                    DataCell(
+                      Flexible(
+                        child: Text(
+                          geneVariant.geneVariant,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ),
+                    ),
+                    DataCell(
+                      Flexible(
+                        child: Text(
+                          geneVariant.drugs.join(", "),
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ),
+                    ),
+                    DataCell(
+                      Flexible(
+                        child: Text(
+                          geneVariant.effectOnDrugResponse.join("\n"),
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ).toList(),
             ),
           ],
         ),
