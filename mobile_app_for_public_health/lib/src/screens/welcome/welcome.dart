@@ -20,12 +20,12 @@ class WelcomePage extends StatelessWidget {
               children: [
                 Text(
                   "Willkommen",
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: Theme.of(context).textTheme.headlineMedium,
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   "Lorem ipsum dolor sit amet",
-                  style: Theme.of(context).textTheme.titleSmall,
+                  style: Theme.of(context).textTheme.bodySmall,
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -37,13 +37,7 @@ class WelcomePage extends StatelessWidget {
                     onPressed: () {
                       Get.to(()=>const LoginScreen());
                     },
-                    style: OutlinedButton.styleFrom(
-                      shape: const RoundedRectangleBorder(),
-                      foregroundColor: primaryColor,
-                      backgroundColor: whiteColor,
-                      side: const BorderSide(color: primaryColor),
-                      padding: const EdgeInsets.symmetric(vertical: buttonHeight),
-                    ),
+                    style: Theme.of(context).outlinedButtonTheme.style,
                     child: Text("Anmelden".toUpperCase()),
                   ),
                 ),
@@ -53,13 +47,7 @@ class WelcomePage extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                       onPressed: () {},
-                      style: OutlinedButton.styleFrom(
-                        shape: const RoundedRectangleBorder(),
-                        foregroundColor: whiteColor,
-                        backgroundColor: primaryColor,
-                        side: const BorderSide(color: primaryColor),
-                        padding: const EdgeInsets.symmetric(vertical: buttonHeight),
-                      ),
+                      style: Theme.of(context).elevatedButtonTheme.style,
                       child: Text("Registrieren".toUpperCase())
                   ),
                 ),

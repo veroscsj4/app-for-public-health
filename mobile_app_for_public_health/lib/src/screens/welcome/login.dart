@@ -18,7 +18,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: Text('Login',
+        style: Theme.of(context).textTheme.titleSmall,),
       ),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -28,12 +29,14 @@ class _LoginScreenState extends State<LoginScreen> {
               TextField(
                 controller: _usernameController,
                 decoration: const InputDecoration(labelText: 'Benutzername'),
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 16.0),
               TextField(
                 controller: _passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(labelText: 'Passwort'),
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 32.0),
               Row(
@@ -47,13 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           String password = _passwordController.text;
                           print('Benutzername: $username, Passwort: $password');
                         },
-                        style: OutlinedButton.styleFrom(
-                          shape: const RoundedRectangleBorder(),
-                          foregroundColor: whiteColor,
-                          backgroundColor: primaryColor,
-                          side: const BorderSide(color: primaryColor),
-                          padding: const EdgeInsets.symmetric(vertical: buttonHeight),
-                        ),
+                        style: Theme.of(context).outlinedButtonTheme.style,
                         child: Text("Anmelden".toUpperCase())),
                   ),
                 ],
@@ -63,20 +60,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Expanded(
                     child: Text('Noch keine Konto? Registrieren Sie sich!',
-                        style: Theme.of(context).textTheme.titleSmall),
+                        style: Theme.of(context).textTheme.bodySmall),
                   ),
                   const SizedBox(height: 32.0),
                   Expanded(
                       child: ElevatedButton(
                           onPressed: () {},
-                          style: OutlinedButton.styleFrom(
-                            shape: const RoundedRectangleBorder(),
-                            foregroundColor: primaryColor,
-                            backgroundColor: whiteColor,
-                            side: const BorderSide(color: primaryColor),
-                            padding:
-                                const EdgeInsets.symmetric(vertical: buttonHeight),
-                          ),
+                          style: Theme.of(context).elevatedButtonTheme.style,
                           child: Text("Registrieren".toUpperCase()))),
                 ],
               )
