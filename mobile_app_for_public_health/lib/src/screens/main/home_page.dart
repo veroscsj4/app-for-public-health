@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_for_public_health/src/constants/styles.dart';
-import '../../constants/img_path.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,17 +12,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF565ACF),
-        title: Row(children: [
-          CircleAvatar(
-            backgroundImage: AssetImage(''),
-            radius: 20.0,
-          ),
-          SizedBox(width: 10.0),
-          Text('Hallo Mustermann',
-           style: Theme.of(context).textTheme.titleSmall,
-           textAlign: TextAlign.center),
-        ],)
+        backgroundColor: const Color(0xFF565ACF),
+        title: Row(
+          children: [
+            const CircleAvatar(
+              backgroundImage: AssetImage(''), // Füge den Pfad zum Benutzerfoto hinzu
+              radius: 20.0,
+            ),
+            const SizedBox(width: 10.0),
+            Text(
+              'Hallo Mustermann',
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -40,7 +42,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 16.0),
-            Text('Hier können Sie die Liste der Medikamente finden, die mit Ihren genetischen Variationen unverträglich sein könnten, zusammen mit den dazugehörigen Nebenwirkungen.'),
+            const Text(
+              'Hier können Sie die Liste der Medikamente finden, die mit Ihren genetischen Variationen unverträglich sein könnten, zusammen mit den dazugehörigen Nebenwirkungen.',
+            ),
             // Table with Information
             DataTable(
               columns: const [
@@ -69,4 +73,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

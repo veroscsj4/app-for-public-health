@@ -23,10 +23,27 @@ class AppTheme {
     textTheme: TextTheme(
       bodyLarge: GoogleFonts.montserrat(
         color: titleColor,
-        fontSize: 45,
+        fontSize: 28,
         fontWeight: FontWeight.bold,
       ),
-      labelSmallWhite: GoogleFonts.poppins(color: whiteColor, fontSize: 30),
+       bodyMedium: GoogleFonts.montserrat(
+        color: titleColor,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+       bodySmall: GoogleFonts.montserrat(
+        color: titleColor,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
+      headlineLarge: GoogleFonts.poppins(color: textColor, fontSize: 50),
+      headlineMedium: GoogleFonts.poppins(color: textColor, fontSize: 45),
+      headlineSmall: GoogleFonts.poppins(color: textColor, fontSize: 40),
+      titleLarge: GoogleFonts.poppins(color: textColor, fontSize: 45),
+      titleMedium: GoogleFonts.poppins(color: textColor, fontSize: 40),
+      titleSmall: GoogleFonts.poppins(color: textColor, fontSize: 35),
+      labelLarge: GoogleFonts.poppins(color: textColor, fontSize: 40),
+      labelMedium: GoogleFonts.poppins(color: textColor, fontSize: 35),
       labelSmall: GoogleFonts.poppins(color: textColor, fontSize: 30),
     ),
   );
