@@ -27,14 +27,14 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               TextField(
                 controller: _usernameController,
-                decoration: const InputDecoration(labelText: 'Benutzername'),
+                decoration: const InputDecoration(labelText: 'Username'),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 16.0),
               TextField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(labelText: 'Passwort'),
+                decoration: const InputDecoration(labelText: 'Password'),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 32.0),
@@ -47,10 +47,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           // TODO DB
                           String username = _usernameController.text;
                           String password = _passwordController.text;
-                          print('Benutzername: $username, Passwort: $password');
+                          print('Username: $username, Password: $password');
                         },
                         style: Theme.of(context).outlinedButtonTheme.style,
-                        child: Text("Anmelden".toUpperCase())),
+                        child: Text("Login".toUpperCase())),
                   ),
                 ],
               ),
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Row(
                 children: [
                   Expanded(
-                    child: Text('Noch keine Konto? Registrieren Sie sich!',
+                    child: Text('No account yet? Register now!',
                         style: Theme.of(context).textTheme.bodySmall),
                   ),
                   const SizedBox(height: 32.0),
@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: ElevatedButton(
                           onPressed: () {},
                           style: Theme.of(context).elevatedButtonTheme.style,
-                          child: Text("Registrieren".toUpperCase()))),
+                          child: Text("Register here".toUpperCase()))),
                 ],
               )
             ],

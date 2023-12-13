@@ -19,7 +19,7 @@ class WelcomePage extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  "Willkommen",
+                  "Welcome",
                   style: Theme.of(context).textTheme.headlineMedium,
                   textAlign: TextAlign.center,
                 ),
@@ -38,7 +38,7 @@ class WelcomePage extends StatelessWidget {
                       Get.to(()=>const LoginScreen());
                     },
                     style: Theme.of(context).outlinedButtonTheme.style,
-                    child: Text("Anmelden".toUpperCase()),
+                    child: Text("Login".toUpperCase()),
                   ),
                 ),
                 const SizedBox(
@@ -48,7 +48,7 @@ class WelcomePage extends StatelessWidget {
                   child: ElevatedButton(
                       onPressed: () {},
                       style: Theme.of(context).elevatedButtonTheme.style,
-                      child: Text("Registrieren".toUpperCase())
+                      child: Text("Register here".toUpperCase())
                   ),
                 ),
               ],
