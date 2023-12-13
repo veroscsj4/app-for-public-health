@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
+import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
-
-Future<List<GeneVariant>> loadGeneVariants() async {
-  try {
-    String jsonString = await rootBundle.loadString('./src/data/drug.json');
-    List<dynamic> jsonList = json.decode(jsonString);
-    print('hier');
-    return jsonList.map((json) => GeneVariant.fromJson(json)).toList();
-  } catch (error) {
-    print('Error loading gene variants: $error');
-    return [];
-  }
-}
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,19 +12,59 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late final List<GeneVariant> geneVariants;
+  late final List<GeneVariantMedicament> geneVariantsMedicaments;
+  int _length = 0;
 
-  @override
-  void initState() {
-    print('hier sind wir');
-    super.initState();
-    geneVariants = [];
-    loadGeneVariants().then((variants) {
+  Future<List<GeneVariantMedicament>> loadGeneVariantsMedicaments() async {
+    try {
+      String jsonString = await rootBundle.loadString('assets/data/drug.json');
+      List<dynamic> jsonList = json.decode(jsonString);
+
       setState(() {
-        geneVariants = variants;
+        _length = jsonList.length;
+        print('hier ist die länge von dem json');
+        print(_length);
       });
-    });
+
+      jsonList.forEach((json) {
+        print(json);
+      });
+      return jsonList.map((json) => GeneVariantMedicament.fromJson(json)).toList();
+    } catch (error) {
+      print('Catch Error loading gene variants: $error');
+      return [];
+    }
   }
+    Future<List<GeneVariant>> loadGeneVariants() async {
+    try {
+      String jsonString = await rootBundle.loadString('assets/data/drug.json');
+      List<dynamic> jsonList = json.decode(jsonString);
+
+      setState(() {
+        _length = jsonList.length;
+        print('hier ist die länge von dem json');
+        print(_length);
+      });
+
+      jsonList.forEach((json) {
+        print(json);
+      });
+      return jsonList.map((json) => GeneVariant.fromJson(json)).toList();
+    } catch (error) {
+      print('Catch Error loading gene variants: $error');
+      return [];
+    }
+  }
+
+@override
+void initState() {
+super.initState();
+loadGeneVariantsMedicaments().then((variants) {
+  setState(() {
+    geneVariantsMedicaments = variants;
+  });
+});
+}
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +74,8 @@ class _HomePageState extends State<HomePage> {
         title: Row(
           children: [
             const CircleAvatar(
-              backgroundImage: AssetImage(''), // Füge den Pfad zum Benutzerfoto hinzu
+              backgroundImage:
+                  AssetImage(''), // Füge den Pfad zum Benutzerfoto hinzu
               radius: 20.0,
             ),
             const SizedBox(width: 10.0),
@@ -72,7 +102,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 16.0),
             Text(
-              'Hier können Sie die Liste der Medikamente finden, die mit Ihren genetischen Variationen unverträglich sein könnten, zusammen mit den dazugehörigen Nebenwirkungen.',
+              'Hier kannst du die Liste der Medikamente finden, die mit deinen genetischen Variationen unverträglich sein könnten, zusammen mit den dazugehörigen Nebenwirkungen.',
               style: Theme.of(context).textTheme.bodySmall,
             ),
             // Table with Information
@@ -81,52 +111,58 @@ class _HomePageState extends State<HomePage> {
                 DataColumn(
                   label: Text(
                     'Genetische Variation',
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 13),
                   ),
                 ),
                 DataColumn(
                   label: Text(
                     'Medikamente',
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 13),
                   ),
                 ),
                 DataColumn(
                   label: Text(
                     'Information',
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 13),
                   ),
                 ),
               ],
-              rows: geneVariants.map(
-                (geneVariant) => DataRow(
-                  cells: [
-                    DataCell(
-                      Flexible(
-                        child: Text(
-                          geneVariant.geneVariant,
-                          style: Theme.of(context).textTheme.bodySmall,
+              rows: geneVariantsMedicaments
+                  .map(
+                    (geneVariantsMedicaments) => DataRow(
+                      cells: [
+                        DataCell(
+                          Flexible(
+                            child: Text(
+                              geneVariantsMedicaments.geneVariant,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    DataCell(
-                      Flexible(
-                        child: Text(
-                          geneVariant.drugs.join(", "),
-                          style: Theme.of(context).textTheme.bodySmall,
+                        DataCell(
+                          Flexible(
+                            child: Text(
+                              geneVariantsMedicaments.drugs is List
+                                  ? (geneVariantsMedicaments.drugs as List<String>).join(", ")
+                                  : geneVariantsMedicaments.drugs.toString(),
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    DataCell(
-                      Flexible(
-                        child: Text(
-                          geneVariant.effectOnDrugResponse.join("\n"),
-                          style: Theme.of(context).textTheme.bodySmall,
+                        DataCell(
+                          Flexible(
+                            child: Text(
+                              geneVariantsMedicaments.drugs is List
+                                  ? (geneVariantsMedicaments.drugs as List<String>).join(", ")
+                                  : geneVariantsMedicaments.drugs.toString(),
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              ).toList(),
+                  )
+                  .toList(),
             ),
           ],
         ),
