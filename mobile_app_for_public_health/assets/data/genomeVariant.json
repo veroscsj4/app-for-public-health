@@ -1,6 +1,9 @@
 [
     {
       "GeneVariant": "CYP2D6"
+    },
+    {
+      "GeneVariant": "OPRM1"
     }
    
   ]

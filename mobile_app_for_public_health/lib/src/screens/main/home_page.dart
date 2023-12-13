@@ -13,42 +13,39 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final List<GeneVariantMedicament> geneVariantsMedicaments;
-  int _length = 0;
+  late final List<GeneVariant> geneVariantList;
+  //int _length = 0;
 
+//read json file from drug.json
   Future<List<GeneVariantMedicament>> loadGeneVariantsMedicaments() async {
     try {
       String jsonString = await rootBundle.loadString('assets/data/drug.json');
       List<dynamic> jsonList = json.decode(jsonString);
 
-      setState(() {
-        _length = jsonList.length;
-        print('hier ist die länge von dem json');
-        print(_length);
-      });
+      /*setState(() {
+      _length = jsonList.length;
+      print('hier ist die Länge von dem JSON');
+      print(_length);
+    });
 
-      jsonList.forEach((json) {
-        print(json);
-      });
-      return jsonList.map((json) => GeneVariantMedicament.fromJson(json)).toList();
+    jsonList.forEach((json) {
+      print(json);
+    });*/
+      return jsonList
+          .map((json) => GeneVariantMedicament.fromJson(json))
+          .toList();
     } catch (error) {
       print('Catch Error loading gene variants: $error');
       return [];
     }
   }
-    Future<List<GeneVariant>> loadGeneVariants() async {
+
+//read json file from genomeVariant.json
+  Future<List<GeneVariant>> loadGeneVariants() async {
     try {
-      String jsonString = await rootBundle.loadString('assets/data/drug.json');
+      String jsonString =
+          await rootBundle.loadString('assets/data/genomeVariant.json');
       List<dynamic> jsonList = json.decode(jsonString);
-
-      setState(() {
-        _length = jsonList.length;
-        print('hier ist die länge von dem json');
-        print(_length);
-      });
-
-      jsonList.forEach((json) {
-        print(json);
-      });
       return jsonList.map((json) => GeneVariant.fromJson(json)).toList();
     } catch (error) {
       print('Catch Error loading gene variants: $error');
@@ -56,18 +53,43 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-@override
-void initState() {
-super.initState();
-loadGeneVariantsMedicaments().then((variants) {
-  setState(() {
-    geneVariantsMedicaments = variants;
-  });
-});
-}
+  // Filter data between geneVariant and geneVariantsMedicaments
+  List<GeneVariantMedicament> filterGeneVariantsMedicaments(
+      List<GeneVariant> geneVariantList,
+      List<GeneVariantMedicament> geneVariantsMedicaments) {
+    List<GeneVariantMedicament> filteredData = [];
+
+    for (var geneVariantMedicament in geneVariantsMedicaments) {
+      for (var geneVariant in geneVariantList) {
+        if (geneVariant.geneVariant == geneVariantMedicament.geneVariant) {
+          filteredData.add(geneVariantMedicament);
+          break;
+        }
+      }
+    }
+
+    return filteredData;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadGeneVariants().then((variants) {
+      setState(() {
+        geneVariantList = variants;
+      });
+    });
+    loadGeneVariantsMedicaments().then((variants) {
+      setState(() {
+        geneVariantsMedicaments = variants;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    List<GeneVariantMedicament> filteredMedicaments =
+        filterGeneVariantsMedicaments(geneVariantList, geneVariantsMedicaments);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF565ACF),
@@ -80,7 +102,7 @@ loadGeneVariantsMedicaments().then((variants) {
             ),
             const SizedBox(width: 10.0),
             Text(
-              'Hallo Mustermann',
+              'Hi Ana!',
               style: Theme.of(context)
                   .textTheme
                   .titleSmall!
@@ -97,72 +119,110 @@ loadGeneVariantsMedicaments().then((variants) {
           children: [
             // Display User's Name at the Top
             Text(
-              'Deine genetischen Variationen sind:',
+              'Your genetic variations are:',
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: 16.0),
             Text(
-              'Hier kannst du die Liste der Medikamente finden, die mit deinen genetischen Variationen unverträglich sein könnten, zusammen mit den dazugehörigen Nebenwirkungen.',
+              'Here you can find the list of medications that may be incompatible with your genetic variations, along with the associated side effects.',
               style: Theme.of(context).textTheme.bodySmall,
             ),
             // Table with Information
-            DataTable(
-              columns: [
-                DataColumn(
-                  label: Text(
-                    'Genetische Variation',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 13),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Medikamente',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 13),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Information',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 13),
-                  ),
-                ),
-              ],
-              rows: geneVariantsMedicaments
-                  .map(
-                    (geneVariantsMedicaments) => DataRow(
-                      cells: [
-                        DataCell(
-                          Flexible(
-                            child: Text(
-                              geneVariantsMedicaments.geneVariant,
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Flexible(
-                            child: Text(
-                              geneVariantsMedicaments.drugs is List
-                                  ? (geneVariantsMedicaments.drugs as List<String>).join(", ")
-                                  : geneVariantsMedicaments.drugs.toString(),
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ),
-                        ),
-                        DataCell(
-                          Flexible(
-                            child: Text(
-                              geneVariantsMedicaments.drugs is List
-                                  ? (geneVariantsMedicaments.drugs as List<String>).join(", ")
-                                  : geneVariantsMedicaments.drugs.toString(),
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ),
-                        ),
-                      ],
+            Container(
+              width: MediaQuery.of(context).size.width,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                  columnSpacing: 16.0, // Adjust the spacing between columns
+                  columns: [
+                    DataColumn(
+                      label: Text(
+                        'Genetische Variation',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(fontSize: 13),
+                      ),
                     ),
-                  )
-                  .toList(),
+                    DataColumn(
+                      label: Text(
+                        'Medikamente',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(fontSize: 13),
+                      ),
+                    ),
+                    DataColumn(
+                      label: Text(
+                        'Information',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(fontSize: 13),
+                      ),
+                    ),
+                  ],
+                  rows: filteredMedicaments
+                      .map(
+                        (filteredMedicaments) => DataRow(
+                          cells: [
+                            DataCell(
+                              Container(
+                                width:
+                                    80, // Set the max width for the first column
+                                child: Text(
+                                  filteredMedicaments.geneVariant,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(fontSize: 13),
+                                ),
+                              ),
+                            ),
+                            DataCell(
+                              Container(
+                                width:
+                                    100, // Set the max width for the second column
+                                child: Text(
+                                  filteredMedicaments.drugs is List
+                                      ? (filteredMedicaments.drugs
+                                              as List<String>)
+                                          .join(", ")
+                                      : filteredMedicaments.drugs.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(fontSize: 13),
+                                ),
+                              ),
+                            ),
+                            DataCell(
+                              Container(
+                                width:
+                                    150, // Set the max width for the third column
+                                child: Text(
+                                  filteredMedicaments.effectOnDrugResponse
+                                          is List
+                                      ? (filteredMedicaments
+                                                  .effectOnDrugResponse
+                                              as List<String>)
+                                          .join(", ")
+                                      : filteredMedicaments.effectOnDrugResponse
+                                          .toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(fontSize: 13),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
             ),
           ],
         ),
