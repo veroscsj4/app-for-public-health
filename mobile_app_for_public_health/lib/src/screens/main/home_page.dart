@@ -122,6 +122,16 @@ class _HomePageState extends State<HomePage> {
               'Your genetic variations are:',
               style: Theme.of(context).textTheme.titleSmall,
             ),
+            if (filteredMedicaments.isNotEmpty)
+              ...filteredMedicaments.map((medicament) => Text(
+                    medicament.geneVariant,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  )),
+            if (filteredMedicaments.isEmpty)
+              Text(
+                'No genetic variations found',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
             const SizedBox(height: 16.0),
             Text(
               'Here you can find the list of medications that may be incompatible with your genetic variations, along with the associated side effects.',
