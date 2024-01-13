@@ -1,8 +1,13 @@
 [
     {
       "GeneVariant": "CYP2D6",
-      "Drug": ["Codeine","Tramadol" ],
-      "EffectOnDrugResponse": ["Reduced pain control in poor metabolizers. Increased risk of side effects in ultra-rapid metabolizers", "Reduced efficacy in poor metabolizers. Increased risk of side effects in ultra-rapid metabolizers"]
+      "Drug": ["Codeine" ],
+      "EffectOnDrugResponse": ["Reduced pain control in poor metabolizers. Increased risk of side effects in ultra-rapid metabolizers"]
+    },
+    {
+      "GeneVariant": "CYP2D6",
+      "Drug": ["Tramadol" ],
+      "EffectOnDrugResponse": ["Reduced efficacy in poor metabolizers. Increased risk of side effects in ultra-rapid metabolizers"]
     },
     {
       "GeneVariant": "CYP2C9",

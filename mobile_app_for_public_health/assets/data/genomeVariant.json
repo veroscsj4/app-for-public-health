@@ -1,5 +1,8 @@
 [
     {
       "GeneVariant": "CYP2D6"
+    },
+    {
+      "GeneVariant": "CYP2C9"
     }
-  ]
+]

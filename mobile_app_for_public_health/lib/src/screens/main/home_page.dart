@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:mobile_app_for_public_health/src/screens/subpages/genomeDescription.dart';
+import 'package:mobile_app_for_public_health/src/screens/subpages/MedicineDescription.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,16 +24,6 @@ class _HomePageState extends State<HomePage> {
     try {
       String jsonString = await rootBundle.loadString('assets/data/drug.json');
       List<dynamic> jsonList = json.decode(jsonString);
-
-      /*setState(() {
-      _length = jsonList.length;
-      print('hier ist die Länge von dem JSON');
-      print(_length);
-    });
-
-    jsonList.forEach((json) {
-      print(json);
-    });*/
       return jsonList
           .map((json) => GeneVariantMedicament.fromJson(json))
           .toList();
@@ -96,8 +89,7 @@ class _HomePageState extends State<HomePage> {
         title: Row(
           children: [
             const CircleAvatar(
-              backgroundImage:
-                  AssetImage(''), // Füge den Pfad zum Benutzerfoto hinzu
+              backgroundImage: AssetImage(''), // TODO FOTO
               radius: 20.0,
             ),
             const SizedBox(width: 10.0),
@@ -119,20 +111,63 @@ class _HomePageState extends State<HomePage> {
           children: [
             // Display User's Name at the Top
             Text(
-              'Your genetic variations are:',
+              'Your genetic variations',
               style: Theme.of(context).textTheme.titleSmall,
             ),
+
             if (filteredMedicaments.isNotEmpty)
-              ...filteredMedicaments.map((medicament) => Text(
-                    medicament.geneVariant,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  )),
+              ...(() {
+                Set<String> uniqueGeneVariants = Set<String>();
+                List<Widget> uniqueContainers = [];
+
+                for (var medicament in filteredMedicaments) {
+                  if (!uniqueGeneVariants.contains(medicament.geneVariant)) {
+                    uniqueGeneVariants.add(medicament.geneVariant);
+
+                    uniqueContainers.add(GestureDetector(
+                      onTap: () {
+                        // Navigate to another page when the container is tapped
+                        Get.to(GenomeDescription(medicament.geneVariant));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                        padding: EdgeInsets.all(18.0),
+                        width: double.infinity,
+                        height: 80.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xFF1F2278),
+                              Color.fromARGB(255, 113, 215, 238),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                        ),
+                        child: Text(
+                          medicament.geneVariant,
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: Colors.white,
+                                  ),
+                        ),
+                      ),
+                    ));
+                  }
+                }
+                return uniqueContainers;
+              })(),
             if (filteredMedicaments.isEmpty)
               Text(
                 'No genetic variations found',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
             const SizedBox(height: 16.0),
+            Text(
+              'List of Medicaments',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
             Text(
               'Here you can find the list of medications that may be incompatible with your genetic variations, along with the associated side effects.',
               style: Theme.of(context).textTheme.bodySmall,
@@ -163,35 +198,43 @@ class _HomePageState extends State<HomePage> {
                             ?.copyWith(fontSize: 13),
                       ),
                     ),
-                    DataColumn(
-                      label: Text(
-                        'Information',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(fontSize: 13),
-                      ),
-                    ),
+                    /*DataColumn(
+          label: Text(
+            'Information',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 13),
+          ),
+        ),*/
                   ],
                   rows: filteredMedicaments
                       .map(
                         (filteredMedicaments) => DataRow(
                           cells: [
                             DataCell(
-                              Container(
-                                width:
-                                    80, // Set the max width for the first column
-                                child: Text(
-                                  filteredMedicaments.geneVariant,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(fontSize: 13),
+                              GestureDetector(
+                                onTap: () {
+                                  // Navigate to the subpage with the medicine name
+                                  //Get.to(MedicineDescription(filteredMedicaments.drugs.toString()));
+                                },
+                                child: Container(
+                                  width:
+                                      80, // Set the max width for the first column
+                                  child: Text(
+                                    filteredMedicaments.geneVariant,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(fontSize: 13),
+                                  ),
                                 ),
                               ),
                             ),
                             DataCell(
-                              Container(
+                              GestureDetector(
+                                onTap: () {
+                                  // Navigate to the subpage with the medicine name
+                                  Get.to(MedicineDescription(filteredMedicaments.drugs.toString()));
+                                },
+                              child:Container(
                                 width:
                                     100, // Set the max width for the second column
                                 child: Text(
@@ -207,26 +250,18 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                            DataCell(
-                              Container(
-                                width:
-                                    150, // Set the max width for the third column
-                                child: Text(
-                                  filteredMedicaments.effectOnDrugResponse
-                                          is List
-                                      ? (filteredMedicaments
-                                                  .effectOnDrugResponse
-                                              as List<String>)
-                                          .join(", ")
-                                      : filteredMedicaments.effectOnDrugResponse
-                                          .toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(fontSize: 13),
-                                ),
-                              ),
-                            ),
+                          ),
+                            /*DataCell(
+              Container(
+                width: 150, // Set the max width for the third column
+                child: Text(
+                  filteredMedicaments.effectOnDrugResponse is List
+                      ? (filteredMedicaments.effectOnDrugResponse as List<String>).join(", ")
+                      : filteredMedicaments.effectOnDrugResponse.toString(),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 13),
+                ),
+              ),
+            ),*/
                           ],
                         ),
                       )
