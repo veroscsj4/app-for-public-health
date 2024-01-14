@@ -21,7 +21,7 @@
     },
     {
       "GeneVariant": "COMT",
-      "Drug": "Various painkillers",
+      "Drug": ["Various painkillers"],
       "EffectOnDrugResponse": ["Influences pain perception and treatment efficacy"]
     }
   ]

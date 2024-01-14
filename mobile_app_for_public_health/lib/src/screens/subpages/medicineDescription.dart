@@ -1,29 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:mobile_app_for_public_health/src/constants/styles.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
+import '../../constants/jsonLoad.dart';
 
-class MedicineDescription extends StatelessWidget {
+class MedicineDescription extends StatefulWidget {
   final List<String> drugs;
 
   MedicineDescription({required this.drugs});
 
   @override
+  _MedicineDescriptionState createState() => _MedicineDescriptionState();
+}
+
+class _MedicineDescriptionState extends State<MedicineDescription> {
+  late Future<String> information;
+
+  @override
+  void initState() {
+    super.initState();
+    information = getInformation(widget.drugs);
+    print('hier');
+
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // Your widget implementation here
-    // You can use the drugs list in your widget
     return Scaffold(
       appBar: AppBar(
-        title: Text('Medicine Description'),
+        backgroundColor: primaryColor,
+        title: Text(
+          'Medicine Description',
+          style: Theme.of(context)
+              .textTheme
+              .titleSmall
+              ?.copyWith(color: Colors.white),
+        ),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Drugs: ${drugs.join(", ")}'),
-            // Add UI elements for other details if needed
+            Text('${widget.drugs.join(", ")}',
+                style: Theme.of(context).textTheme.titleSmall),
+            FutureBuilder(
+              future: information,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return Text('${snapshot.data}', style: Theme.of(context).textTheme.bodySmall);
+                }
+              },
+            ),
           ],
         ),
       ),

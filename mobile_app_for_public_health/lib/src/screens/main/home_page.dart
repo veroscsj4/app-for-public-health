@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../constants/styles.dart';
+import 'dart:convert';
 import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
-import 'dart:convert';
+import '../../constants/jsonLoad.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:mobile_app_for_public_health/src/screens/subpages/genomeDescription.dart';
 import 'package:mobile_app_for_public_health/src/screens/subpages/MedicineDescription.dart';
@@ -19,52 +20,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final List<GeneVariantMedicament> geneVariantsMedicaments;
   late final List<GeneVariant> geneVariantList;
-  //int _length = 0;
-
-//read json file from drug.json
-  Future<List<GeneVariantMedicament>> loadGeneVariantsMedicaments() async {
-    try {
-      String jsonString = await rootBundle.loadString('assets/data/drug.json');
-      List<dynamic> jsonList = json.decode(jsonString);
-      return jsonList
-          .map((json) => GeneVariantMedicament.fromJson(json))
-          .toList();
-    } catch (error) {
-      print('Catch Error loading gene variants: $error');
-      return [];
-    }
-  }
-
-//read json file from genomeVariant.json
-  Future<List<GeneVariant>> loadGeneVariants() async {
-    try {
-      String jsonString =
-          await rootBundle.loadString('assets/data/genomeVariant.json');
-      List<dynamic> jsonList = json.decode(jsonString);
-      return jsonList.map((json) => GeneVariant.fromJson(json)).toList();
-    } catch (error) {
-      print('Catch Error loading gene variants: $error');
-      return [];
-    }
-  }
-
-  // Filter data between geneVariant and geneVariantsMedicaments
-  List<GeneVariantMedicament> filterGeneVariantsMedicaments(
-      List<GeneVariant> geneVariantList,
-      List<GeneVariantMedicament> geneVariantsMedicaments) {
-    List<GeneVariantMedicament> filteredData = [];
-
-    for (var geneVariantMedicament in geneVariantsMedicaments) {
-      for (var geneVariant in geneVariantList) {
-        if (geneVariant.geneVariant == geneVariantMedicament.geneVariant) {
-          filteredData.add(geneVariantMedicament);
-          break;
-        }
-      }
-    }
-
-    return filteredData;
-  }
 
   @override
   void initState() {
@@ -232,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                               GestureDetector(
                                 onTap: () {
                                   // Navigate to the subpage with the medicine name
-                                  //Get.to(MedicineDescription(filteredMedicaments.drugs.toString()));
+                                  Get.to(MedicineDescription(drugs: filteredMedicaments.drugs));
                                 },
                                 child: Container(
                                   width: 150, // Set the max width for the first column
@@ -250,7 +205,7 @@ class _HomePageState extends State<HomePage> {
                               GestureDetector(
                                 onTap: () {
                                   // Navigate to the subpage with the medicine name
-                                  //Get.to(MedicineDescription(filteredMedicaments.drugs.toString()));
+                                  Get.to(MedicineDescription(drugs: filteredMedicaments.drugs));
                                 },
                               child:Container(
                                 width: 150, // Set the max width for the second column
