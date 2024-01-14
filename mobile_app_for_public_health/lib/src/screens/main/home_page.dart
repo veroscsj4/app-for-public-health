@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import '../../constants/styles.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
 import 'dart:convert';
@@ -114,7 +116,7 @@ class _HomePageState extends State<HomePage> {
               'Your genetic variations',
               style: Theme.of(context).textTheme.titleSmall,
             ),
-
+            // Show Variants in Container
             if (filteredMedicaments.isNotEmpty)
               ...(() {
                 Set<String> uniqueGeneVariants = Set<String>();
@@ -138,20 +140,27 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(8.0),
                           gradient: LinearGradient(
                             colors: [
-                              Color(0xFF1F2278),
+                              primaryColor,
                               Color.fromARGB(255, 113, 215, 238),
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
                         ),
-                        child: Text(
-                          medicament.geneVariant,
-                          style:
-                              Theme.of(context).textTheme.titleSmall?.copyWith(
-                                    color: Colors.white,
-                                  ),
-                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                            medicament.geneVariant,
+                            style:
+                                Theme.of(context).textTheme.titleSmall?.copyWith(
+                                      color: Colors.white,
+                                    ),
+                            ),
+                          FaIcon(FontAwesomeIcons.ellipsisH, color: Colors.white),
+
+                          ]
+                        )
                       ),
                     ));
                   }
@@ -172,21 +181,37 @@ class _HomePageState extends State<HomePage> {
               'Here you can find the list of medications that may be incompatible with your genetic variations, along with the associated side effects.',
               style: Theme.of(context).textTheme.bodySmall,
             ),
-            // Table with Information
+            // Table with Medicine Information
             Container(
-              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.only(top: 20.0, bottom: 8.0),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromARGB(255, 224, 223, 223),
+                    blurRadius: 5.0,
+                    spreadRadius: 3.0,
+                    offset: Offset(0, 1),
+                  ),
+                ],
+              ),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: DataTable(
                   columnSpacing: 16.0, // Adjust the spacing between columns
+                  headingRowColor: MaterialStateColor.resolveWith((states) => primaryColor), // Header background color
+                  headingRowHeight: 70.0,
+                  //horizontalMargin: 100.0,
                   columns: [
                     DataColumn(
                       label: Text(
-                        'Genetische Variation',
+                        'Variation',
                         style: Theme.of(context)
                             .textTheme
-                            .bodySmall
-                            ?.copyWith(fontSize: 13),
+                            .titleSmall
+                            ?.copyWith(fontSize: 14, color: Colors.white),
                       ),
                     ),
                     DataColumn(
@@ -194,16 +219,10 @@ class _HomePageState extends State<HomePage> {
                         'Medikamente',
                         style: Theme.of(context)
                             .textTheme
-                            .bodySmall
-                            ?.copyWith(fontSize: 13),
+                            .titleSmall
+                            ?.copyWith(fontSize: 14,  color: Colors.white),
                       ),
                     ),
-                    /*DataColumn(
-          label: Text(
-            'Information',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 13),
-          ),
-        ),*/
                   ],
                   rows: filteredMedicaments
                       .map(
@@ -216,8 +235,7 @@ class _HomePageState extends State<HomePage> {
                                   //Get.to(MedicineDescription(filteredMedicaments.drugs.toString()));
                                 },
                                 child: Container(
-                                  width:
-                                      80, // Set the max width for the first column
+                                  width: 150, // Set the max width for the first column
                                   child: Text(
                                     filteredMedicaments.geneVariant,
                                     style: Theme.of(context)
@@ -232,11 +250,10 @@ class _HomePageState extends State<HomePage> {
                               GestureDetector(
                                 onTap: () {
                                   // Navigate to the subpage with the medicine name
-                                  Get.to(MedicineDescription(filteredMedicaments.drugs.toString()));
+                                  //Get.to(MedicineDescription(filteredMedicaments.drugs.toString()));
                                 },
                               child:Container(
-                                width:
-                                    100, // Set the max width for the second column
+                                width: 150, // Set the max width for the second column
                                 child: Text(
                                   filteredMedicaments.drugs is List
                                       ? (filteredMedicaments.drugs
@@ -251,17 +268,6 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                            /*DataCell(
-              Container(
-                width: 150, // Set the max width for the third column
-                child: Text(
-                  filteredMedicaments.effectOnDrugResponse is List
-                      ? (filteredMedicaments.effectOnDrugResponse as List<String>).join(", ")
-                      : filteredMedicaments.effectOnDrugResponse.toString(),
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 13),
-                ),
-              ),
-            ),*/
                           ],
                         ),
                       )

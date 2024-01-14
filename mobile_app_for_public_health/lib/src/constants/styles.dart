@@ -3,12 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 /* List of Colors */
 
-const primaryColor = Color(0xFF565ACF);
-const secondaryColor = Color(0xFFF17732);
-const blackColor = Color(0xFF000000);
-const whiteColor = Color(0xFFFFFFFF);
-const textColor = Color.fromARGB(255, 0, 0, 0);
-const titleColor = Color(0xFF1F2278);
+const primaryColor = const Color(0xFF565ACF);
+const secondaryColor = const Color(0xFFF17732);
+const blackColor = const Color(0xFF000000);
+const whiteColor = const Color(0xFFFFFFFF);
+const textColor = const Color.fromARGB(255, 0, 0, 0);
+const titleColor = const Color(0xFF1F2278);
 
 /* Sizes */
 
