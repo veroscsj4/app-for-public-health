@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                     uniqueContainers.add(GestureDetector(
                       onTap: () {
                         // Navigate to another page when the container is tapped
-                        Get.to(GenomeDescription(medicament.geneVariant));
+                        Get.to(GenomeDescription(genome: medicament.geneVariant));
                       },
                       child: Container(
                         margin: EdgeInsets.only(top: 10.0, bottom: 10.0),

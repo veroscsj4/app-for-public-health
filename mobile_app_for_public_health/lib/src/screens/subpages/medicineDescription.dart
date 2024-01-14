@@ -19,7 +19,7 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
   @override
   void initState() {
     super.initState();
-    information = getInformation(widget.drugs);
+    information = getInformation(widget.drugs, 'drugs');
     print('hier');
 
   }
