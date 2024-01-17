@@ -27,14 +27,16 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               TextField(
                 controller: _usernameController,
-                decoration: const InputDecoration(labelText: 'Username'),
+                decoration: InputDecoration(labelText: 'Username',
+                labelStyle: Theme.of(context).textTheme.bodySmall),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 16.0),
               TextField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(labelText: 'Password'),
+                decoration: InputDecoration(labelText: 'Password',
+                labelStyle: Theme.of(context).textTheme.bodySmall),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 32.0),

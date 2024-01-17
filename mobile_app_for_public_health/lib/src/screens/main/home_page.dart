@@ -20,6 +20,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final List<GeneVariantMedicament> geneVariantsMedicaments;
   late final List<GeneVariant> geneVariantList;
+  List<dynamic> searchData = [];
+  final searchController = TextEditingController();
 
   @override
   void initState() {
@@ -35,6 +37,25 @@ class _HomePageState extends State<HomePage> {
       });
     });
   }
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+void _onSearchTextChanged(String text) {
+  setState(() {
+    searchData = text.isEmpty
+        ? geneVariantsMedicaments
+        : geneVariantsMedicaments
+            .where((item) =>
+                item.geneVariant.toLowerCase().contains(text.toLowerCase()) ||
+                item.drugs
+                    .any((drug) => drug.toLowerCase().contains(text.toLowerCase())))
+            .toList();
+  });
+}
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +156,23 @@ class _HomePageState extends State<HomePage> {
             Text(
               'Here you can find the list of medications that may be incompatible with your genetic variations, along with the associated side effects.',
               style: Theme.of(context).textTheme.bodySmall,
+            ),
+            //Search function
+            Container(
+              margin: EdgeInsets.only(top: 20.0, bottom: 0.0),
+              height: 50.0,
+              child: TextField(
+                controller:searchController,
+                decoration: InputDecoration(
+                hintText: 'Search...',
+                hintStyle: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(fontSize: 14),
+                border:OutlineInputBorder(),
+                ),
+                onChanged: _onSearchTextChanged,
+              ),
             ),
             // Table with Medicine Information
             Container(
