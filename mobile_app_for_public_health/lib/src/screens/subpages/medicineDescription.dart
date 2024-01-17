@@ -14,14 +14,25 @@ class MedicineDescription extends StatefulWidget {
 }
 
 class _MedicineDescriptionState extends State<MedicineDescription> {
-  late Future<String> information;
+  Future<String>? information;
 
   @override
   void initState() {
     super.initState();
-    information = getInformation(widget.drugs, 'drugs');
+    fetchData();
+    //information = getInformation(widget.drugs, 'drugs');
     print('hier');
+  }
 
+  Future<void> fetchData() async {
+    try {
+      Map<String, dynamic>? result = await getInformation(widget.drugs, 'drugs');
+      information = Future.value(result?['information']?.toString());
+
+      setState(() {});
+    } catch (error) {
+      print('Error fetching data: $error');
+    }
   }
 
   @override
@@ -43,15 +54,25 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
           children: [
             Text('${widget.drugs.join(", ")}',
                 style: Theme.of(context).textTheme.titleSmall),
-            FutureBuilder(
+            FutureBuilder<String>(
               future: information,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else {
-                  return Text('${snapshot.data}', style: Theme.of(context).textTheme.bodySmall);
+                  if (snapshot.data != null) {
+                    return Text(
+                      snapshot.data.toString(),
+                      style: Theme.of(context).textTheme.bodySmall,
+                    );
+                  } else {
+                    return Text(
+                      'No information available',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    );
+                  }
                 }
               },
             ),

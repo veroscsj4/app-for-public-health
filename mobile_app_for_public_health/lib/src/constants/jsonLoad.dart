@@ -58,24 +58,25 @@ import 'package:mobile_app_for_public_health/src/data/genome_variant_information
 
     return filteredData;
   }
-Future<String> getInformation(dynamic medicineNames, String typeOfInformation) async {
+Future<Map<String, dynamic>?> getInformation(dynamic searchObject, String typeOfInformation) async {
   if(typeOfInformation == "genome"){
+    print(searchObject);
     try {
        List<GeneVariantInformation> geneVariantInformation = await loadGeneVariantInformation();
-      //print(medicineNames);
-      for (var medicine in geneVariantInformation) {
-        print(medicine.geneVariant.toString());
-        if (medicineNames == medicine.geneVariant.toString()) {
-          return medicine.information.join(',');
+       //print('hier!!!!' + searchObject);
+      for (var genome in geneVariantInformation) {   
+        //print(genome.geneVariant + '     ' + genome.information.join(',') + '    ' + genome.chromosome + '    ' + genome.link.join(','));   
+        if (searchObject != null && searchObject == genome.geneVariant) {
+           print('genomeVariant = '+genome.chromosome);
+          return {'information':genome.information.join(','), 'chromosome': genome.chromosome.toString()};
         }
       }
-
       // Return a default value or handle the case when the medicine is not found
-      return 'Genome information not found';
+      return {'information':'Genome information not found'};
     } catch (error) {
       print('Error loading genome variants: $error');
       // Handle the error as needed
-      return 'Error loading gene variants';
+      return {'information':'Error loading gene variants'};
     }
   }else{
     try {
@@ -83,17 +84,17 @@ Future<String> getInformation(dynamic medicineNames, String typeOfInformation) a
           await loadGeneVariantsMedicaments();
 
       for (var medicine in geneVariantsMedicaments) {
-        if (medicineNames.toString() == medicine.drugs.toString()) {
-          return medicine.effectOnDrugResponse.join(',');
+        if (searchObject.toString() == medicine.drugs.toString()) {
+          return {'information':medicine.effectOnDrugResponse.join(',')};
         }
       }
 
       // Return a default value or handle the case when the medicine is not found
-      return 'Medicine information not found';
+      return {'information':'Medicine information not found'};
     } catch (error) {
       print('Error loading gene variants: $error');
       // Handle the error as needed
-      return 'Error loading gene variants';
+      return {'information':'Error loading gene variants'};
     }
   }
 }
