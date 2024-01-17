@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app_for_public_health/src/screens/main/home_page.dart';
+import 'package:mobile_app_for_public_health/src/screens/welcome/registration.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -66,7 +67,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 32.0),
                   Expanded(
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                             Get.to(()=>const RegistrationPage());
+                          },
                           style: Theme.of(context).elevatedButtonTheme.style,
                           child: Text("Register here".toUpperCase()))),
                 ],
