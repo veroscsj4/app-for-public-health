@@ -1,0 +1,27 @@
+[
+    {
+      "GeneVariant": "CYP2D6",
+      "Drug": ["Codeine" ],
+      "EffectOnDrugResponse": ["Reduced pain control in poor metabolizers. Increased risk of side effects in ultra-rapid metabolizers"]
+    },
+    {
+      "GeneVariant": "CYP2D6",
+      "Drug": ["Tramadol" ],
+      "EffectOnDrugResponse": ["Reduced efficacy in poor metabolizers. Increased risk of side effects in ultra-rapid metabolizers"]
+    },
+    {
+      "GeneVariant": "CYP2C9",
+      "Drug": ["NSAIDs (e.g., Celecoxib)"],
+      "EffectOnDrugResponse": ["Altered drug metabolism, affecting efficacy and risk of side effects"]
+    },
+    {
+      "GeneVariant": "OPRM1",
+      "Drug": ["Opioids (e.g., Morphine)"],
+      "EffectOnDrugResponse": ["Variants can influence pain relief and risk of addiction"]
+    },
+    {
+      "GeneVariant": "COMT",
+      "Drug": ["Various painkillers"],
+      "EffectOnDrugResponse": ["Influences pain perception and treatment efficacy"]
+    }
+  ]
