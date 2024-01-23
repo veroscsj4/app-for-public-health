@@ -22,31 +22,38 @@ class _HomePageState extends State<HomePage> {
   late final List<GeneVariant> geneVariantList;
   List<dynamic> searchData = [];
   final searchController = TextEditingController();
-
+  late final List<GeneVariantMedicament> filteredMedicaments;
   @override
   void initState() {
     super.initState();
     loadGeneVariants().then((variants) {
       setState(() {
         geneVariantList = variants;
+        filteredMedicaments= filterGeneVariantsMedicaments(geneVariantList, geneVariantsMedicaments);
+        searchData = filteredMedicaments;
       });
     });
     loadGeneVariantsMedicaments().then((variants) {
       setState(() {
         geneVariantsMedicaments = variants;
+        filteredMedicaments= filterGeneVariantsMedicaments(geneVariantList, geneVariantsMedicaments);
+        searchData = filteredMedicaments;
       });
     });
+  
   }
+  
   @override
   void dispose() {
     searchController.dispose();
     super.dispose();
   }
+
 void _onSearchTextChanged(String text) {
   setState(() {
     searchData = text.isEmpty
-        ? geneVariantsMedicaments
-        : geneVariantsMedicaments
+        ? filteredMedicaments
+        : filteredMedicaments
             .where((item) =>
                 item.geneVariant.toLowerCase().contains(text.toLowerCase()) ||
                 item.drugs
@@ -55,12 +62,9 @@ void _onSearchTextChanged(String text) {
   });
 }
 
-
-
   @override
   Widget build(BuildContext context) {
-    List<GeneVariantMedicament> filteredMedicaments =
-        filterGeneVariantsMedicaments(geneVariantList, geneVariantsMedicaments);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF565ACF),
@@ -82,7 +86,8 @@ void _onSearchTextChanged(String text) {
           ],
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+        child:      Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,7 +222,7 @@ void _onSearchTextChanged(String text) {
                       ),
                     ),
                   ],
-                  rows: filteredMedicaments
+                  rows: searchData
                       .map(
                         (filteredMedicaments) => DataRow(
                           cells: [
@@ -271,6 +276,8 @@ void _onSearchTextChanged(String text) {
           ],
         ),
       ),
+      )
+      
     );
   }
 }
