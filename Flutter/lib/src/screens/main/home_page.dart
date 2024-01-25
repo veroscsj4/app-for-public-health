@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../constants/styles.dart';
-import 'dart:convert';
 import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
 import '../../constants/jsonLoad.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:mobile_app_for_public_health/src/screens/subpages/genomeDescription.dart';
 import 'package:mobile_app_for_public_health/src/screens/subpages/MedicineDescription.dart';
 

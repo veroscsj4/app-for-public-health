@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/* Here you will find all the standard styles of the app. */ 
+
 /* List of Colors */
 
 const primaryColor = const Color(0xFF565ACF);
