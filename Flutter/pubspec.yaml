@@ -59,6 +59,7 @@ dev_dependencies:
 flutter:
   assets:
       - assets/img/start/welcomePNG.png
+      - assets/img/start/uploadPNG.png
       - assets/data/drug.json
       - assets/data/genomeVariant.json
       - assets/data/genomeVariantInformation.json
