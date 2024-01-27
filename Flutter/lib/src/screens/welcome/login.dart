@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_app_for_public_health/src/screens/main/home_page.dart';
 import 'package:mobile_app_for_public_health/src/screens/welcome/registration.dart';
 import 'package:get/get.dart';
+import 'package:mobile_app_for_public_health/src/constants/styles.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: primaryColor,
         title: Text(
           'Login',
           style: Theme.of(context)

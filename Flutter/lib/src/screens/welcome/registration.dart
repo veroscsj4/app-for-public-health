@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_app_for_public_health/src/screens/welcome/loadData.dart';
+import 'package:mobile_app_for_public_health/src/constants/styles.dart';
 
 
 class RegistrationPage extends StatefulWidget {
@@ -21,6 +22,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: primaryColor,
         title: Text('Registration', 
           style: Theme.of(context)
                 .textTheme
