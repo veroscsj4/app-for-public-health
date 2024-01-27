@@ -3,14 +3,14 @@ import 'package:mobile_app_for_public_health/src/screens/main/home_page.dart';
 import 'package:mobile_app_for_public_health/src/screens/welcome/registration.dart';
 import 'package:get/get.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -18,8 +18,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login',
-        style: Theme.of(context).textTheme.titleSmall,),
+        title: Text(
+          'Login',
+          style: Theme.of(context)
+              .textTheme
+              .titleSmall
+              ?.copyWith(color: Colors.white),
+        ),
       ),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -28,16 +33,18 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               TextField(
                 controller: _usernameController,
-                decoration: InputDecoration(labelText: 'Username',
-                labelStyle: Theme.of(context).textTheme.bodySmall),
+                decoration: InputDecoration(
+                    labelText: 'Username',
+                    labelStyle: Theme.of(context).textTheme.bodySmall),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 16.0),
               TextField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: InputDecoration(labelText: 'Password',
-                labelStyle: Theme.of(context).textTheme.bodySmall),
+                decoration: InputDecoration(
+                    labelText: 'Password',
+                    labelStyle: Theme.of(context).textTheme.bodySmall),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 32.0),
@@ -46,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Expanded(
                     child: ElevatedButton(
                         onPressed: () {
-                          Get.to(()=>const HomePage());
+                          Get.to(() => const HomePage());
                           // TODO DB
                           String username = _usernameController.text;
                           String password = _passwordController.text;
@@ -66,12 +73,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 32.0),
                   Expanded(
-                      child: ElevatedButton(
-                          onPressed: () {
-                             Get.to(()=>const RegistrationPage());
-                          },
-                          style: Theme.of(context).elevatedButtonTheme.style,
-                          child: Text("Register here".toUpperCase()))),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.to(() => const RegistrationPage());
+                      },
+                      style: Theme.of(context).elevatedButtonTheme.style,
+                      child: Text("Register here".toUpperCase())
+                    )
+                  ),
                 ],
               )
             ],
