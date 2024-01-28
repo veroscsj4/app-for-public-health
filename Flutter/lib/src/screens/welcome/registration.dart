@@ -22,7 +22,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor,
+        
         title: Text('Registration', 
           style: Theme.of(context)
                 .textTheme

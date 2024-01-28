@@ -16,7 +16,6 @@ class UploadPageState extends State<UploadPage> {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor,
         title: Text(
           'Thank you for registering!',
           style: Theme.of(context)
