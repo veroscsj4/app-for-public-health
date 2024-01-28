@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../constants/styles.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
-import '../../constants/jsonLoad.dart';
+import '../../constants/general_functions.dart';
 import 'package:mobile_app_for_public_health/src/screens/subpages/MedicineDescription.dart';
 
 class MedicinePage extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app_for_public_health/src/constants/styles.dart';
-import '../../constants/jsonLoad.dart';
+import '../../constants/general_functions.dart';
 
 class MedicineDescription extends StatefulWidget {
   final List<String> drugs;

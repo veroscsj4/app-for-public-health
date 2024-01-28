@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app_for_public_health/src/constants/styles.dart';
-import '../../constants/jsonLoad.dart';
+import '../../constants/general_functions.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class GenomeDescription extends StatefulWidget {
