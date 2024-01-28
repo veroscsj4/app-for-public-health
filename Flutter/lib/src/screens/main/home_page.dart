@@ -13,18 +13,20 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   late final List<GeneVariantMedicament> geneVariantsMedicaments;
   late final List<GeneVariant> geneVariantList;
   List<dynamic> searchData = [];
   final searchController = TextEditingController();
   late final List<GeneVariantMedicament> filteredMedicaments;
+
   @override
   void initState() {
     super.initState();
+
     loadGeneVariants().then((variants) {
       setState(() {
         geneVariantList = variants;
@@ -69,23 +71,20 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: primaryColor,
           toolbarHeight: 100,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(40),
-              bottomRight: Radius.circular(40)
-            )
-          ),
-          title: Container(   
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(40),
+                  bottomRight: Radius.circular(40))),
+          title: Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const CircleAvatar(
-                  radius: 35.0,
-                  backgroundColor: whiteColor,
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(userImage),
-                    radius: 30.0,
-                  )
-                ),
+                    radius: 35.0,
+                    backgroundColor: whiteColor,
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage(userImage),
+                      radius: 30.0,
+                    )),
                 const SizedBox(width: 10.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,47 +118,65 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Display User's Name at the Top
+                const SizedBox(height: 16.0),
                 Text(
                   'Your genetic variations',
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
+                Text(
+                  'In our analysis, we discovered the following genetic variations in your genome. Click on each box for more detailed information about each one',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
                 // Show Variants in Container
-                if (filteredMedicaments.isNotEmpty)
-                  ...(() {
-                    Set<String> uniqueGeneVariants = Set<String>();
-                    List<Widget> uniqueContainers = [];
-                    for (var medicament in filteredMedicaments) {
-                      if (!uniqueGeneVariants
-                          .contains(medicament.geneVariant)) {
-                        uniqueGeneVariants.add(medicament.geneVariant);
-                        uniqueContainers.add(GestureDetector(
-                          onTap: () {
-                            // Navigate to another page when the container is tapped
-                            Get.to(GenomeDescription(
-                                genome: medicament.geneVariant));
-                          },
-                          child: Container(
-                              margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                              padding: EdgeInsets.all(18.0),
-                              width: double.infinity,
-                              height: 80.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.0),
-                                gradient: LinearGradient(
-                                  colors: [
-                                    primaryColor,
-                                    const Color.fromARGB(255, 113, 215, 238),
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
+                Container(
+                  height: geneVariantList.length == 2 ? 100.0 : 200.0,
+                  child: ListView.builder(
+                    itemCount: (geneVariantList.length / 2)
+                        .ceil(), // Ensure you have even or odd number of items
+                    itemBuilder: (BuildContext context, int index) {
+                      int startIndex = index * 2;
+                      int endIndex = (index + 1) * 2;
+                      if (endIndex > geneVariantList.length) {
+                        endIndex = geneVariantList.length;
+                      }
+
+                      return Row(
+                        children: [
+                          for (int i = startIndex; i < endIndex; i++)
+                            GestureDetector(
+                              onTap: () {
+                                // Navigate to GenomeDescription screen when tapped
+                                Get.to(() => GenomeDescription(
+                                    genome: geneVariantList[i].geneVariant));
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                  top: 10.0,
+                                  bottom: 10.0,
+                                  right: i.isEven
+                                      ? 16.0
+                                      : 0.0, // Add margin only to even indices
                                 ),
-                              ),
-                              child: Row(
+                                padding: EdgeInsets.all(18.0),
+                                width: 150.0,
+                                height: 90.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      primaryColor,
+                                      const Color.fromARGB(255, 113, 215, 238),
+                                    ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                  ),
+                                ),
+                                child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      medicament.geneVariant,
+                                      geneVariantList[i].geneVariant,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall
@@ -169,54 +186,56 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     FaIcon(FontAwesomeIcons.ellipsisH,
                                         color: Colors.white),
-                                  ])),
-                        ));
-                      }
-                    }
-                    return uniqueContainers; 
-                  })(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
                 if (filteredMedicaments.isEmpty)
                   Text(
                     'No genetic variations found',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                 const SizedBox(height: 16.0),
-
+                Text(
+                  'Incompatible medicines', 
+                  style: Theme.of(context).textTheme.titleSmall,),
+                Text(
+                  'By analyzing your genome, we identify drugs that may not be compatible with your genetic makeup.', 
+                  style: Theme.of(context).textTheme.bodySmall,),
                 GestureDetector(
                     onTap: () {
                       Get.to(() => const MedicinePage());
                     },
                     child: Container(
-                      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      padding: EdgeInsets.all(18.0),
+                      margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                      padding: const EdgeInsets.all(18.0),
                       width: double.infinity,
                       height: 180.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
                         image: DecorationImage(
-                          image: AssetImage(medicine),
+                          image: const AssetImage(medicine),
                           fit: BoxFit.cover,
                           alignment: Alignment.topCenter,
                           colorFilter: ColorFilter.mode(
-                            Colors.black.withOpacity(0.4),
-                            BlendMode.darken
-                          ),
+                              Colors.black.withOpacity(0.3), BlendMode.darken),
                         ),
                       ),
-                      child: Row(
-                        children: [
-                        Text('List of Medicaments', 
-                          style: Theme.of(context)
-                            .textTheme
-                            .titleSmall
-                            ?.copyWith(
-                              color: Colors.white,
-                            ) ,
-                          )
-                        ]
-                      ),
-                    )
-                  ),
+                      child: Row(children: [
+                        Text(
+                          'List of Medicaments',
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: Colors.white,
+                                  ),
+                        )
+                      ]),
+                    )),
               ],
             ),
           ),

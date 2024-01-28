@@ -35,7 +35,6 @@ class MedicineDescriptionState extends State<MedicineDescription> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor,
         title: Text(
           'Medicine Description',
           style: Theme.of(context)

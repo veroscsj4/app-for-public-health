@@ -96,5 +96,13 @@ class AppTheme {
       textStyle: const TextStyle(fontSize: 15, fontFamily: 'poppins'),
       ),
     ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: primaryColor,
+      toolbarHeight: 100,
+      shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+      bottomLeft: Radius.circular(40),
+      bottomRight: Radius.circular(40))),
+    )  
   );
 }
