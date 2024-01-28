@@ -37,11 +37,11 @@ def numpy_array_to_json(numpy_array):
     return json.dumps(python_list)
 
 
-# Function to filter variants based on search criteria
-def filter_variants(variants_df, search_values, search_positions, search_gene_variant):
+# # Function to detect variants based on position and chromosom
+def identify_variants(variants_df, chrom, position, gene_variant):
     results = []
 
-    for value, position, gene_variant in zip(search_values, search_positions, search_gene_variant):
+    for value, position, gene_variant in zip(chrom, position, gene_variant):
         if isinstance(position, tuple):  # Check if the position is a range
             result_df = variants_df[(variants_df['#CHROM'] == value) & (variants_df['POS'].between(*position))].copy()
         else:
@@ -55,7 +55,7 @@ def filter_variants(variants_df, search_values, search_positions, search_gene_va
 
 
 # VCF file name
-vcf_file = 'output_CYP2D6_CYP2C19.vcf'
+vcf_file = '../data/output.vcf'
 
 # Parse the VCF file and create the DataFrame
 variants_df = parse_vcf(vcf_file)
