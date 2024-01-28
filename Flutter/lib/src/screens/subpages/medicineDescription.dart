@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app_for_public_health/src/constants/styles.dart';
-import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
-import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
 import '../../constants/jsonLoad.dart';
 
 class MedicineDescription extends StatefulWidget {
@@ -10,18 +8,16 @@ class MedicineDescription extends StatefulWidget {
   MedicineDescription({required this.drugs});
 
   @override
-  _MedicineDescriptionState createState() => _MedicineDescriptionState();
+  MedicineDescriptionState createState() => MedicineDescriptionState();
 }
 
-class _MedicineDescriptionState extends State<MedicineDescription> {
+class MedicineDescriptionState extends State<MedicineDescription> {
   Future<String>? information;
 
   @override
   void initState() {
     super.initState();
     fetchData();
-    //information = getInformation(widget.drugs, 'drugs');
-    print('hier');
   }
 
   Future<void> fetchData() async {

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app_for_public_health/src/constants/styles.dart';
-import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
-import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
 import '../../constants/jsonLoad.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -11,10 +9,10 @@ class GenomeDescription extends StatefulWidget {
   GenomeDescription({required this.genome});
 
   @override
-  _GenomeDescriptionState createState() => _GenomeDescriptionState();
+  GenomeDescriptionState createState() => GenomeDescriptionState();
 }
 
-class _GenomeDescriptionState extends State<GenomeDescription> {
+class GenomeDescriptionState extends State<GenomeDescription> {
   Future<String>? information;
   Future<String>? chromosome;
 
