@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:mobile_app_for_public_health/src/constants/styles.dart';
 import '../../constants/img_path.dart';
+import '../../constants/jsonLoad.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({Key? key}) : super(key: key);
@@ -10,7 +10,6 @@ class UploadPage extends StatefulWidget {
 }
 
 class UploadPageState extends State<UploadPage> {
-  final Uri _url = Uri.parse('https://genomedicine.com');
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -51,7 +50,7 @@ class UploadPageState extends State<UploadPage> {
                 SizedBox(height: 20),
                 InkWell(
                   onTap: () {
-                    _launchUrl();
+                    launchURL('https://genomedicine.com');
                   },
                   child: Container(
                     padding: EdgeInsets.all(10),
@@ -73,13 +72,5 @@ class UploadPageState extends State<UploadPage> {
         ),
       ),
     );
-  }
-
-  Future<void> _launchUrl() async {
-    if (await launchUrl(_url)) {
-      await launchUrl(_url);
-    } else {
-      throw 'Could not launch $_url';
-    }
   }
 }
