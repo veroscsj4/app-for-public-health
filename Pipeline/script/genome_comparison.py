@@ -72,17 +72,24 @@ position = [(113761832, 113812476), (42125531, 42130881), 603038, (42125531, 421
 gene_variant = ['RSBN1', 'CYP2D6', 'MTHFR','CYP2D6', 'CYP3A4']
 
 # Filter variants based on search criteria
-final_result = filter_variants(variants_df, search_values, search_positions, search_gene_variant)
-
-# Print the final DataFrame as a formatted string
-#print(final_result.to_string(index=False))
+final_result = identify_variants(variants_df, chrom, position, gene_variant)
 
 # Extract the 'Gene variants found' column as a NumPy array
 gene_variants_array = final_result['Gene variants found'].to_numpy()
 
+# Convert the NumPy array to a Python list
+gene_variants_list = gene_variants_array.tolist()
+
+# Create a list of dictionaries with specified format
+formatted_gene_variants = [{"GeneVariant": gene} for gene in gene_variants_list]
+
+# Define file path 
+json_file_path = '../../Flutter/assets/data/genomeVariant.json'
+
+# Save the list as JSON
+with open(json_file_path, 'w') as json_file:
+    json.dump(formatted_gene_variants, json_file, indent=2)  # indent for pretty formatting
+
 # Print gene_variants_array
 print(gene_variants_array)
 
-#Output: gene variants in JSON for communication with Flutter frontend
-# TO DO: SEND GENE_VARIANTS_JSON TO FLUTTER FRONTEND
-gene_variants_json = numpy_array_to_json(gene_variants_array)
