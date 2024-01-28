@@ -68,12 +68,6 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: primaryColor,
-          toolbarHeight: 100,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40))),
           title: Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -184,8 +178,18 @@ class HomePageState extends State<HomePage> {
                                             color: Colors.white,
                                           ),
                                     ),
-                                    FaIcon(FontAwesomeIcons.ellipsisH,
-                                        color: Colors.white),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(8.0), 
+                                      ),
+                                      padding: EdgeInsets.only(top:8, bottom:8, right:10, left:10),
+                                      child: FaIcon(
+                                        FontAwesomeIcons.angleRight,
+                                        color:primaryColor, 
+                                        size: 15.0,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -202,40 +206,58 @@ class HomePageState extends State<HomePage> {
                   ),
                 const SizedBox(height: 16.0),
                 Text(
-                  'Incompatible medicines', 
-                  style: Theme.of(context).textTheme.titleSmall,),
+                  'Incompatible medicines',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
                 Text(
-                  'By analyzing your genome, we identify drugs that may not be compatible with your genetic makeup.', 
-                  style: Theme.of(context).textTheme.bodySmall,),
+                  'By analyzing your genome, we identify drugs that may not be compatible with your genetic makeup.',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
                 GestureDetector(
                     onTap: () {
                       Get.to(() => const MedicinePage());
                     },
                     child: Container(
-                      margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      padding: const EdgeInsets.all(18.0),
-                      width: double.infinity,
-                      height: 180.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        image: DecorationImage(
-                          image: const AssetImage(medicine),
-                          fit: BoxFit.cover,
-                          alignment: Alignment.topCenter,
-                          colorFilter: ColorFilter.mode(
-                              Colors.black.withOpacity(0.3), BlendMode.darken),
+                        margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                        padding: const EdgeInsets.all(18.0),
+                        width: double.infinity,
+                        height: 180.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          image: DecorationImage(
+                            image: const AssetImage(medicine),
+                            fit: BoxFit.cover,
+                            alignment: Alignment.topCenter,
+                            colorFilter: ColorFilter.mode(
+                                Colors.black.withOpacity(0.3),
+                                BlendMode.darken),
+                          ),
                         ),
-                      ),
-                      child: Row(children: [
-                        Text(
-                          'List of Medicaments',
-                          style:
-                              Theme.of(context).textTheme.titleSmall?.copyWith(
-                                    color: Colors.white,
-                                  ),
-                        )
-                      ]),
-                    )),
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'List of Medicaments',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(
+                                      color: Colors.white,
+                                    ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                padding: EdgeInsets.only(top:8, bottom:8, right:10, left:10),
+                                child: FaIcon(
+                                  FontAwesomeIcons.angleRight,
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ]))),
               ],
             ),
           ),

@@ -63,7 +63,6 @@ void _onSearchTextChanged(String text) {
         filterGeneVariantsMedicaments(geneVariantList, geneVariantsMedicaments);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF565ACF),
         title: Text(
           'List of Medicaments',
           style: Theme.of(context)
