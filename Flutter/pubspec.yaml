@@ -59,6 +59,8 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
+      - assets/img/start/userImage.jpg
+      - assets/img/start/medicine.png
       - assets/img/start/welcomePNG.png
       - assets/img/start/uploadPNG.png
       - assets/data/drug.json
