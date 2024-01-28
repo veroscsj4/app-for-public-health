@@ -66,12 +66,10 @@ variants_df['#CHROM'] = variants_df['#CHROM'].apply(minimize_chrom)
 # Convert the 'POS' column to numeric values, coercing errors to NaN.
 variants_df['POS'] = pd.to_numeric(variants_df['POS'], errors='coerce')
 
-# Define search criteria for genetic variants
-# WIP [IMPORTANT]: search_positions are dummy data
-
-search_values = ['NC_000016', 'NC_000001', 'NC_000007', 'NC_000001']
-search_positions = [(28971111, 28971113), 28975712, 1641693, 28971111]
-search_gene_variant = ['G6PD', 'CYP2D6', 'CYP2C19', 'MTHFR']
+# Search criteria for genetic variants
+chrom = ['NC_000001', 'NC_000001', 'NC_000001', 'NC_000022', 'NC_000007']
+position = [(113761832, 113812476), (42125531, 42130881), 603038, (42125531, 42130881), (99756967,99784184)]
+gene_variant = ['RSBN1', 'CYP2D6', 'MTHFR','CYP2D6', 'CYP3A4']
 
 # Filter variants based on search criteria
 final_result = filter_variants(variants_df, search_values, search_positions, search_gene_variant)
