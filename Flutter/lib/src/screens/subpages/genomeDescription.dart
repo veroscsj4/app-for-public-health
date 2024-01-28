@@ -40,7 +40,6 @@ class GenomeDescriptionState extends State<GenomeDescription> {
     print(information);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor,
         title: Text(
           'Genome Description',
           style: Theme.of(context)
