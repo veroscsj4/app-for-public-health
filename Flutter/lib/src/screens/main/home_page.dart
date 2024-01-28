@@ -166,8 +166,7 @@ class HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       geneVariantList[i].geneVariant,
@@ -257,7 +256,10 @@ class HomePageState extends State<HomePage> {
                                   color: primaryColor,
                                 ),
                               ),
-                            ]))),
+                            ]
+                          )
+                        )
+                      ),
               ],
             ),
           ),

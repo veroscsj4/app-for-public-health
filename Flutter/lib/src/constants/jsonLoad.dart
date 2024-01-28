@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant_information.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 //read json file from drug.json
 Future<List<GeneVariantMedicament>> loadGeneVariantsMedicaments() async {
@@ -79,7 +81,7 @@ Future<Map<String, dynamic>?> getInformation(
           return {
             'information': genome.information.join(','),
             'chromosome': genome.chromosome.toString(),
-            'link': genome.link.join(','),
+            'link': genome.link,
           };
         }
       }
@@ -112,3 +114,11 @@ Future<Map<String, dynamic>?> getInformation(
     }
   }
 }
+  Future<void> launchURL(String link) async {
+    final Uri url = Uri.parse(link);
+    if (await launchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }

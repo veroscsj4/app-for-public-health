@@ -11,6 +11,7 @@ const blackColor = const Color(0xFF000000);
 const whiteColor = const Color(0xFFFFFFFF);
 const textColor = const Color.fromARGB(255, 0, 0, 0);
 const titleColor = const Color(0xFF1F2278);
+const lightGreyColor = Color.fromARGB(255, 220, 220, 220);
 
 /* Sizes */
 
