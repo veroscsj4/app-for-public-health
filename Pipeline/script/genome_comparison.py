@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import json
+import os
+
 
 # Function to parse VCF file and create a Pandas DataFrame
 def parse_vcf(vcf_file):
@@ -50,12 +52,18 @@ def filter_variants(variants_df, search_values, search_positions, search_gene_va
         if not result_df.empty:
             result_df['Gene variants found'] = gene_variant
             results.append(result_df)
-
+    print(results)
     return pd.concat(results, ignore_index=True)
 
 
 # VCF file name
-vcf_file = 'output_CYP2D6_CYP2C19.vcf'
+# vcf_file = 'output_CYP2D6_CYP2C19.vcf'
+vcf_file = 'output.vcf'
+
+if os.path.exists(vcf_file):
+    print("File exists.")
+else:
+    print("File does not exist.")
 
 # Parse the VCF file and create the DataFrame
 variants_df = parse_vcf(vcf_file)
@@ -88,3 +96,4 @@ print(gene_variants_array)
 #Output: gene variants in JSON for communication with Flutter frontend
 # TO DO: SEND GENE_VARIANTS_JSON TO FLUTTER FRONTEND
 gene_variants_json = numpy_array_to_json(gene_variants_array)
+print(gene_variants_json)

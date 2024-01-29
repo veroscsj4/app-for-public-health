@@ -24,9 +24,9 @@ echo "Simulating Reads with wgsim..."
 # - $DATA_DIR/read1.fq, $DATA_DIR/read2.fq: Output files for simulated paired-end reads.
 # - -1 100 -2 100: Read lengths of 100 base pairs for both ends.
 # - -d 300: Mean fragment size of 300 base pairs.
-# - -N 480024: Number of read pairs to simulate
+# - -N 600000: Number of read pairs to simulate
 #- -e 0 -r 0 -R 0 -X 0 : Error ratio in reads
-wgsim -1 100 -2 100 -d 300 -e 0 -r 0 -R 0 -X 0 -N 480024  GCF_000001405.40_GRCh38.p14_genomic_140000-160000_MTHFR.fa $DATA_DIR/read1.fq $DATA_DIR/read2.fq
+wgsim -1 100 -2 100 -d 300 -e 0 -r 0 -R 0 -X 0 -N 600000  GCF_000001405.40_GRCh38.p14_genomic_140000-160000_MTHFR.fa $DATA_DIR/read1.fq $DATA_DIR/read2.fq
 
 # Step 3: Pre-processing Reads with fastp
 echo "Pre-processing Reads with fastp..."
@@ -58,7 +58,7 @@ samtools view -bS $DATA_DIR/output.sam > $DATA_DIR/output.bam
 samtools sort $DATA_DIR/output.bam -o $DATA_DIR/sorted_output.bam
 samtools index $DATA_DIR/sorted_output.bam
 
-# Step 6: Variant Calling with Freebayes
+# # Step 6: Variant Calling with Freebayes
 echo "Variant Calling with Freebayes..."
 
 # Parameters:
@@ -66,5 +66,8 @@ echo "Variant Calling with Freebayes..."
 # - $DATA_DIR/sorted_output.bam: Sorted and indexed BAM file containing aligned reads.
 # > $DATA_DIR/output.vcf: Output VCF (Variant Call Format) file for storing variant calls.
 freebayes -f GCF_000001405.40_GRCh38.p14_genomic_140000-160000.fa $DATA_DIR/sorted_output.bam > $DATA_DIR/output.vcf
+
+# Step 7: Comaparison
+python3 /usr/local/bin/genome_comparison.py
 
 echo "Pipeline completed successfully!"
