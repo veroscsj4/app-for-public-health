@@ -36,7 +36,7 @@ class WelcomePage extends StatelessWidget {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () {
-                      Get.to(()=>const LoginScreen());
+                      Get.to(()=>const LoginPage());
                     },
                     style: Theme.of(context).outlinedButtonTheme.style,
                     child: Text("Login".toUpperCase()),

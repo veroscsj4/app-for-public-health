@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/* Here you will find all the standard styles of the app. */ 
+
 /* List of Colors */
 
-const primaryColor = const Color(0xFF565ACF);
+const primaryColor = Color.fromARGB(255, 121, 136, 247);
 const secondaryColor = const Color(0xFFF17732);
 const blackColor = const Color(0xFF000000);
 const whiteColor = const Color(0xFFFFFFFF);
 const textColor = const Color.fromARGB(255, 0, 0, 0);
 const titleColor = const Color(0xFF1F2278);
+const lightGreyColor = Color.fromARGB(255, 220, 220, 220);
 
 /* Sizes */
 
@@ -94,5 +97,13 @@ class AppTheme {
       textStyle: const TextStyle(fontSize: 15, fontFamily: 'poppins'),
       ),
     ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: primaryColor,
+      toolbarHeight: 100,
+      shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+      bottomLeft: Radius.circular(40),
+      bottomRight: Radius.circular(40))),
+    )  
   );
 }

@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  url_launcher: ^6.0.9
   font_awesome_flutter: ^9.0.0
   data_tables: ^1.4.0
   flutter:
@@ -58,7 +59,10 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
+      - assets/img/start/userImage.jpg
+      - assets/img/start/medicine.png
       - assets/img/start/welcomePNG.png
+      - assets/img/start/uploadPNG.png
       - assets/data/drug.json
       - assets/data/genomeVariant.json
       - assets/data/genomeVariantInformation.json

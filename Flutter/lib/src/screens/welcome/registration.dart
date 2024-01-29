@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mobile_app_for_public_health/src/screens/welcome/loadData.dart';
+import 'package:mobile_app_for_public_health/src/constants/styles.dart';
 
 
 class RegistrationPage extends StatefulWidget {
@@ -19,8 +22,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         title: Text('Registration', 
-        style: Theme.of(context).textTheme.titleSmall,),
+          style: Theme.of(context)
+                .textTheme
+                .titleSmall
+                ?.copyWith(color: Colors.white),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -76,8 +84,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             SizedBox(height: 80),
             ElevatedButton(
               onPressed: () {
-                // Hier Registrierungslogik implementieren
-                Beispiel: print('Name: ${nameController.text}');
+                Get.to(() => const UploadPage());
               },
               child: Text('Register'.toUpperCase()),
             ),
