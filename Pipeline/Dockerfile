@@ -9,7 +9,11 @@ RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     build-essential \
-    zlib1g-dev
+    zlib1g-dev \
+    python3 \
+    python3-pip
+
+RUN pip3 install pandas
 
 # Download and install wgsim
 RUN wget https://github.com/lh3/wgsim/archive/master.zip && \
@@ -19,6 +23,8 @@ RUN wget https://github.com/lh3/wgsim/archive/master.zip && \
 
 # Copy the wrapper script into the container
 COPY pipline_wrapper.sh /usr/local/bin/pipeline_wrapper.sh
+COPY ./script/genome_comparison.py /usr/local/bin/genome_comparison.py
+
 RUN chmod +x /usr/local/bin/pipeline_wrapper.sh
 
 # Set working directory
