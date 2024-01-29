@@ -43,7 +43,7 @@ class GenomeDescriptionState extends State<GenomeDescription> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Genome Description',
+          'Gene Description',
           style: Theme.of(context)
               .textTheme
               .titleSmall
@@ -54,7 +54,6 @@ class GenomeDescriptionState extends State<GenomeDescription> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text('Chromosome', style: Theme.of(context).textTheme.titleSmall),
             Text('${widget.genome}',
                 style: Theme.of(context).textTheme.titleSmall),
             const SizedBox(height: 20),
