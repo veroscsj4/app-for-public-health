@@ -228,7 +228,7 @@ class HomePageState extends State<HomePage> {
                             fit: BoxFit.cover,
                             alignment: Alignment.topCenter,
                             colorFilter: ColorFilter.mode(
-                                Colors.black.withOpacity(0.3),
+                                Colors.black.withOpacity(0.1),
                                 BlendMode.darken),
                           ),
                         ),
