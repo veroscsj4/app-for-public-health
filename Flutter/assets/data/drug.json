@@ -1,27 +1,44 @@
 [
-    {
-      "GeneVariant": "CYP2D6",
-      "Drug": ["Codeine" ],
-      "EffectOnDrugResponse": ["Reduced pain control in poor metabolizers. Increased risk of side effects in ultra-rapid metabolizers"]
-    },
-    {
-      "GeneVariant": "CYP2D6",
-      "Drug": ["Tramadol" ],
-      "EffectOnDrugResponse": ["Reduced efficacy in poor metabolizers. Increased risk of side effects in ultra-rapid metabolizers"]
-    },
-    {
-      "GeneVariant": "CYP2C9",
-      "Drug": ["NSAIDs (e.g., Celecoxib)"],
-      "EffectOnDrugResponse": ["Altered drug metabolism, affecting efficacy and risk of side effects"]
-    },
-    {
-      "GeneVariant": "OPRM1",
-      "Drug": ["Opioids (e.g., Morphine)"],
-      "EffectOnDrugResponse": ["Variants can influence pain relief and risk of addiction"]
-    },
-    {
-      "GeneVariant": "COMT",
-      "Drug": ["Various painkillers"],
-      "EffectOnDrugResponse": ["Influences pain perception and treatment efficacy"]
-    }
-  ]
+  {
+    "GeneVariant": "CYP2D6",
+    "Drug": ["Codeine"],
+    "EffectOnDrugResponse": [
+      "Poor Metabolizers: Individuals with reduced CYP2D6 function may experience less effective conversion of Codeine to morphine, potentially leading to reduced pain relief. Alternative medications or adjusted dosages may be considered.                                        Ultra-Rapid Metabolizers: Ultra-rapid metabolizers may convert Codeine into morphine too quickly, leading to increased opioid effects and potential side effects. Adjustments in dosage may be necessary."
+    ]
+  },
+  {
+    "GeneVariant": "CYP2D6",
+    "Drug": ["Tramadol"],
+    "EffectOnDrugResponse": [
+      "Poor Metabolizers: Individuals with reduced CYP2D6 function may experience decreased conversion of Tramadol into its active form. This can lead to reduced pain relief, and alternative medications or adjusted dosages may be considered.                                     Ultra-Rapid Metabolizers: May experience faster conversion of Tramadol, potentially leading to increased opioid effects and side effects. Dosage adjustments may be necessary."
+    ]
+  },
+  {
+    "GeneVariant": "CYP2D6",
+    "Drug": ["Hydrocodone"],
+    "EffectOnDrugResponse": [
+      "Poor Metabolizers: Individuals with reduced CYP2D6 function may experience decreased conversion of Hydrocodone into its active form. This can lead to reduced pain relief, and alternative medications or adjusted dosages may be considered.                                  Ultra-Rapid Metabolizers: May experience faster conversion of Hydrocodone, potentially leading to increased opioid effects and side effects. Dosage adjustments may be necessary."
+    ]
+  },
+  {
+    "GeneVariant": "CYP2D6",
+    "Drug": ["Methadone"],
+    "EffectOnDrugResponse": [
+      "Poor Metabolizers: Individuals with reduced CYP2D6 function may experience decreased conversion of Methadone into its active form. This can lead to altered responses to Methadone, and alternative medications or adjusted dosages may be considered.                         Ultra-rapid Metabolizers: May experience faster conversion of Methadone, potentially leading to increased opioid effects and side effects. Dosage adjustments may be necessary."
+    ]
+  },
+  {
+    "GeneVariant": "CYP3A4",
+    "Drug": ["Fentanyl"],
+    "EffectOnDrugResponse": [
+      "Poor Metabolizers: Individuals with reduced CYP3A4 function may experience decreased metabolism of Fentanyl, potentially leading to prolonged effects and increased risk of side effects. Dosage adjustments or alternative medications may be considered.                       Ultra-Rapid Metabolizers: May experience faster metabolism of Fentanyl, potentially requiring higher doses for adequate pain relief. Close monitoring is recommended to avoid excessive opioid effects."
+    ]
+  },
+  {
+    "GeneVariant": "CYP3A4",
+    "Drug": ["Buprenorphine"],
+    "EffectOnDrugResponse": [
+      "Poor Metabolizers: Individuals with reduced CYP3A4 function may experience decreased metabolism of Buprenorphine, potentially leading to altered responses. Dosage adjustments or alternative medications may be considered.                                                     Ultra-Rapid Metabolizers: May experience faster metabolism of Buprenorphine, potentially requiring adjustments in dosage for optimal therapeutic effects."
+    ]
+  }
+]
