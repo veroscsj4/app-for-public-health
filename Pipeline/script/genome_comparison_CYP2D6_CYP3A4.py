@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import json
+import os
+
 
 # Function to parse VCF file and create a Pandas DataFrame
 def parse_vcf(vcf_file):
@@ -50,7 +52,7 @@ def identify_variants(variants_df, chrom, position, gene_variant):
         if not result_df.empty:
             result_df['Gene variants found'] = gene_variant
             results.append(result_df)
-
+    print(results)
     return pd.concat(results, ignore_index=True)
 
 
