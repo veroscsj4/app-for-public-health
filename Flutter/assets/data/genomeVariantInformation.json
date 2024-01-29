@@ -2,7 +2,7 @@
     {
       "GeneVariant": "CYP2D6",
       "Chromosome":"22",
-      "Information": "CYP3A4 plays a crucial role in the metabolism of a wide range of drugs, including antibiotics. This enzyme is involved in breaking down drugs into metabolites, which are then excreted from the body. The activity of CYP3A4 can vary among individuals due to genetic factors, impacting drug responses. ",
+      "Information": "CYP2D6 is a crucial enzyme in the cytochrome P450 enzyme system, predominantly found in the liver. It plays a significant role in the metabolism of various drugs, including antibiotics and other medications.",
       "Link": ["https://pubmed.ncbi.nlm.nih.gov/28339912/", "https://pubmed.ncbi.nlm.nih.gov/26227254/"]
     },
     {
