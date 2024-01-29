@@ -4,7 +4,7 @@
 set -e
 
 # Define data directory
-DATA_DIR="/data"
+DATA_DIR="/usr/local/data"
 
 
 # Step 1: Indexing with Bowtie

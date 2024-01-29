@@ -21,14 +21,14 @@ RUN wget https://github.com/lh3/wgsim/archive/master.zip && \
     gcc -g -O2 -Wall -o /usr/local/bin/wgsim wgsim-master/wgsim.c -lz -lm && \
     rm -rf wgsim-master master.zip
 
+# Set working directory
+WORKDIR /usr/local/data
+
 # Copy the wrapper script into the container
 COPY pipline_wrapper.sh /usr/local/bin/pipeline_wrapper.sh
-COPY ./script/genome_comparison.py /usr/local/bin/genome_comparison.py
+COPY Pipeline/script/genome_comparison_CYP2D6_CYP3A4.py /usr/local/bin/genome_comparison_CYP2D6_CYP3A4.py
 
 RUN chmod +x /usr/local/bin/pipeline_wrapper.sh
-
-# Set working directory
-WORKDIR /data
 
 # Set the wrapper script as the entrypoint
 ENTRYPOINT ["/usr/local/bin/pipeline_wrapper.sh"]
