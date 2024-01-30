@@ -17,15 +17,6 @@ echo "Running Bowtie Indexing..."
 bowtie2-build Pipeline/GCF_000001405.40_GRCh38.p14_genomic_140000-160000.fa $DATA_DIR/reference_index
 
 
-# Step 1: Indexing with Bowtie
-echo "Running Bowtie Indexing..."
-
-# Parameters:
-# - GCF_000001405.40_GRCh38.p14_genomic_140000-160000.fa: Reference genome file to be indexed.
-# - $DATA_DIR/reference_index: Output directory and prefix for the indexed reference.
-bowtie2-build GCF_000001405.40_GRCh38.p14_genomic_140000-160000.fa $DATA_DIR/reference_index
-
-
 # Step 2: Simulate Reads with wgsim
 echo "Simulating Reads with wgsim..."
 
