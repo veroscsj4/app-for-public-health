@@ -35,7 +35,7 @@ If you encounter an error from Xcode, it's likely that your cache is full. Pleas
 
 We used the Flutter Testing Framework to write and run our tests.
 
-<img src="https://gitlab.rz.htw-berlin.de/s0556187/mobile-app-for-public-health/-/blob/fix/readme/Screenshots/Test_Coverage.png" width="300" alt="Test Coverage">
+![Test Coverage](Screenshots/Test_Coverage.png)
 
 
 
