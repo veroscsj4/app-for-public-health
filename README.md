@@ -42,7 +42,7 @@ flutter test
 
 ### Test Coverage
 
-<img src="Screenshots/Test_Coverage.png" width="500" alt="Test Coverage"/>
+<img src="Screenshots/Test_Coverage.png" width="550" alt="Test Coverage"/>
 
 For running the coverage:
 
