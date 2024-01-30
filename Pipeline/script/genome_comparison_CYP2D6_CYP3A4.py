@@ -57,7 +57,7 @@ def identify_variants(variants_df, chrom, position, gene_variant):
 
 
 # VCF file name
-vcf_file = '../data/output.vcf'
+vcf_file = 'Pipeline/data/output.vcf'
 
 # Parse the VCF file and create the DataFrame
 variants_df = parse_vcf(vcf_file)
@@ -86,7 +86,7 @@ gene_variants_list = gene_variants_array.tolist()
 formatted_gene_variants = [{"GeneVariant": gene} for gene in gene_variants_list]
 
 # Define file path 
-json_file_path = '../../Flutter/assets/data/genomeVariant.json'
+json_file_path = 'Flutter/assets/data/genomeVariant.json'
 
 # Save the list as JSON
 with open(json_file_path, 'w') as json_file:
