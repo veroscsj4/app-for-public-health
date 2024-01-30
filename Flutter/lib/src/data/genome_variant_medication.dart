@@ -1,20 +1,20 @@
-class GeneVariantMedicament {
+class GeneVariantMedication {
   String geneVariant;
   List<String> drugs;
   List<String> effectOnDrugResponse;
 
-  GeneVariantMedicament({
+  GeneVariantMedication({
     required this.geneVariant,
     required this.drugs,
     required this.effectOnDrugResponse,
   });
 
-  factory GeneVariantMedicament.fromJson(Map<String, dynamic> json) {
+  factory GeneVariantMedication.fromJson(Map<String, dynamic> json) {
     // Handle the case where 'Drug' and 'EffectOnDrugResponse' can be single values or lists
     var drugsList = json['Drug'];
     var effectsList = json['EffectOnDrugResponse'];
 
-    return GeneVariantMedicament(
+    return GeneVariantMedication(
       geneVariant: json['GeneVariant'] ?? '',
       drugs: _parseStringList(drugsList),
       effectOnDrugResponse: _parseStringList(effectsList),
