@@ -35,8 +35,37 @@ If you encounter an error from Xcode, it's likely that your cache is full. Pleas
 
 We used the Flutter Testing Framework to write and run our tests.
 
-<img src="Screenshots/Test_Coverage.png" width="250" alt="Test Coverage"/>
+To run the test on your local machine go to the flutter path and run:
+``` bash
+flutter test
+```
 
+### Test Coverage
+
+Test Coverage:
+<img src="Screenshots/Test_Coverage.png" width="500" alt="Test Coverage"/>
+
+For running the coverage:
+
+1. Make sure you got lcov installed
+```bash
+brew install lcov
+```
+
+2. Generate Coverage Data
+```bash 
+flutter test --coverage
+```
+
+3. Generate the Coverage Report using lcov
+```bash
+genhtml coverage/lcov.info --output-directory coverage/html
+```
+
+4. Open the report
+```bash
+open coverage/html/index.html
+```
 
 
 ## Getting Started: Flutter - General Information 
