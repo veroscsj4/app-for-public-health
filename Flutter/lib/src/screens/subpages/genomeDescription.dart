@@ -21,7 +21,6 @@ class GenomeDescriptionState extends State<GenomeDescription> {
   void initState() {
     super.initState();
     fetchData();
-    //information = getInformation(widget.genome, 'genome');
   }
 
   Future<void> fetchData() async {
@@ -154,9 +153,8 @@ class GenomeDescriptionState extends State<GenomeDescription> {
                                     color: lightGreyColor,
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
-                                  padding: EdgeInsets.only(
-                                      top: 15, bottom: 15, right: 15, left: 10),
-                                  margin: EdgeInsets.only(top: 10),
+                                  padding: const EdgeInsets.only(top: 15, bottom: 15, right: 15, left: 10),
+                                  margin: const EdgeInsets.only(top: 10),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -171,8 +169,8 @@ class GenomeDescriptionState extends State<GenomeDescription> {
                                               .bodySmall,
                                         ),
                                       ),
-                                      SizedBox(width: 8),
-                                      FaIcon(
+                                      const SizedBox(width: 8),
+                                      const FaIcon(
                                         FontAwesomeIcons.arrowCircleRight,
                                         color: primaryColor,
                                         size: 15.0,
