@@ -133,7 +133,6 @@ class GenomeDescriptionState extends State<GenomeDescription> {
                     List<String> linkList = snapshot.data as List<String>;
 
                     if (linkList.isNotEmpty) {
-
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -145,34 +144,41 @@ class GenomeDescriptionState extends State<GenomeDescription> {
                             'You can find additional information here. ',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          for (String link in linkList)                         
+                          for (String link in linkList)
                             GestureDetector(
                               onTap: () {
                                 launchURL(link);
                               },
                               child: Container(
-                                decoration: BoxDecoration(
-                                  color: lightGreyColor,
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                padding: EdgeInsets.only(top: 15, bottom: 15, right: 15, left: 10),
-                                margin: EdgeInsets.only(top: 10),
-                                child: Row(
-                                  mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SizedBox(width: 8),  // Adjust the spacing between icon and text
-                                    Text(
-                                      link,
-                                      style: Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                    FaIcon(
+                                  decoration: BoxDecoration(
+                                    color: lightGreyColor,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  padding: EdgeInsets.only(
+                                      top: 15, bottom: 15, right: 15, left: 10),
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Text(
+                                          link,
+                                          overflow: TextOverflow
+                                              .ellipsis, 
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall,
+                                        ),
+                                      ),
+                                      SizedBox(width: 8),
+                                      FaIcon(
                                         FontAwesomeIcons.arrowCircleRight,
-                                        color:primaryColor, 
+                                        color: primaryColor,
                                         size: 15.0,
                                       ),
-                                  ],
-                                )
-                              ),
+                                    ],
+                                  )),
                             ),
                         ],
                       );
