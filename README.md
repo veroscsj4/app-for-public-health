@@ -35,7 +35,7 @@ If you encounter an error from Xcode, it's likely that your cache is full. Pleas
 
 We used the Flutter Testing Framework to write and run our tests.
 
-![Test Coverage](Screenshots/Test_Coverage.png)
+<img src="Screenshots/Test_Coverage.png" width="250" alt="Test Coverage"/>
 
 
 
