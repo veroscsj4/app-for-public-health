@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_app_for_public_health/src/screens/subpages/searchFilter.dart';
 import '../../constants/styles.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant_medication.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
@@ -19,7 +20,18 @@ class MedicinePageState extends State<MedicinePage> {
   List<dynamic> searchData = [];
   final searchController = TextEditingController();
   late final List<GeneVariantMedication> filteredMedications;
-  @override
+
+  /* 
+  Initializes the state of the [MedicineTabelle] screen.
+  This method is called when the widget is inserted into the widget tree.
+  It loads the gene variants and gene variant medications asynchronously, and updates the state of the screen with the loaded data.
+
+  The [loadGeneVariants] method loads the gene variants and assigns them to the [geneVariantList].
+  The [loadGeneVariantsMedications] method loads the gene variant medications and assigns them to the [geneVariantsMedications].
+
+  After loading the data, the [filterGeneVariantsMedications] method is called to filter the medications based on the gene variants.
+  The filtered medications are assigned to the [filteredMedications] list, and the [searchData] is updated with the filtered medications.
+  */
   void initState() {
     super.initState();
     loadGeneVariants().then((variants) {
@@ -46,23 +58,18 @@ class MedicinePageState extends State<MedicinePage> {
     super.dispose();
   }
 
-  void _onSearchTextChanged(String text) {
+  // Create an instance of the search handler
+  final MedicationSearchHandler _searchHandler = MedicationSearchHandler();
+
+  // Filter the list of medications based on the search text
+  void onSearchTextChanged(String text) {
     setState(() {
-      searchData = text.isEmpty
-          ? filteredMedications
-          : filteredMedications
-              .where((item) =>
-                  item.geneVariant.toLowerCase().contains(text.toLowerCase()) ||
-                  item.drugs.any((drug) =>
-                      drug.toLowerCase().contains(text.toLowerCase())))
-              .toList();
+      searchData = _searchHandler.filterMedications(text, filteredMedications);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<GeneVariantMedication> filteredMedications =
-        filterGeneVariantsMedications(geneVariantList, geneVariantsMedications);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -96,7 +103,7 @@ class MedicinePageState extends State<MedicinePage> {
                       ?.copyWith(fontSize: 14),
                   border: OutlineInputBorder(),
                 ),
-                onChanged: _onSearchTextChanged,
+                onChanged: onSearchTextChanged,
               ),
             ),
             // Table with Medicine Information
