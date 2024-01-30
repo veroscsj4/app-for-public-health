@@ -106,7 +106,7 @@ The Dockerfile sets up the necessary dependencies and tools for the genomics pip
 - `genome_comparison_MTHFR.py` (for testing the pipeline)
 
 ## Running `genome_comparison_CYP2D6_CYP3A4.py`
-**Note:** Building the Docker image is not required for running `genome_comparison_CYP2D6_CYP3A4.py` as the necessary VCF file, `CYP2D6_CYP3A4.vcf`, is already provided.
+**Note:** Building the Docker image is not required for running `genome_comparison_CYP2D6_CYP3A4.py` as the necessary VCF file, `output.vcf`, is already in "Pipeline/data/" provided.
 
 ### Steps:
 
