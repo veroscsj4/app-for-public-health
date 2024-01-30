@@ -16,7 +16,22 @@ void main() {
           geneVariant: "VariantB",
           drugs: ["Drug3"],
           effectOnDrugResponse: ["Testing Effects still!"]),
+      GeneVariantMedication(
+          geneVariant: "VariantC",
+          drugs: ["Medicine1", "Drug2"],
+          effectOnDrugResponse: ["Blindness"]),
     ];
+
+    test('Multiple matches are returned for a common drug', () {
+      var result = searchHandler.filterMedications('Drug2', testMedications);
+      expect(result.length, 2);
+    });
+
+    test('No matches return an empty list', () {
+      var result =
+          searchHandler.filterMedications('NonExistentDrug', testMedications);
+      expect(result.isEmpty, true);
+    });
 
     test('Empty search text returns all medications', () {
       var result = searchHandler.filterMedications('', testMedications);
