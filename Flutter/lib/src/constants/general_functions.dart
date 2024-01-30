@@ -1,18 +1,17 @@
 import 'package:flutter/services.dart';
 import 'dart:convert';
-import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
+import 'package:mobile_app_for_public_health/src/data/genome_variant_medication.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant_information.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 //read json file from drug.json
-Future<List<GeneVariantMedicament>> loadGeneVariantsMedicaments() async {
+Future<List<GeneVariantMedication>> loadGeneVariantsMedications() async {
   try {
     String jsonString = await rootBundle.loadString('assets/data/drug.json');
     List<dynamic> jsonList = json.decode(jsonString);
     return jsonList
-        .map((json) => GeneVariantMedicament.fromJson(json))
+        .map((json) => GeneVariantMedication.fromJson(json))
         .toList();
   } catch (error) {
     print('Catch Error loading gene variants: $error');
@@ -48,16 +47,16 @@ Future<List<GeneVariantInformation>> loadGeneVariantInformation() async {
   }
 }
 
-// Filter data between geneVariant and geneVariantsMedicaments
-List<GeneVariantMedicament> filterGeneVariantsMedicaments(
+// Filter data between geneVariant and geneVariantsMedications
+List<GeneVariantMedication> filterGeneVariantsMedications(
     List<GeneVariant> geneVariantList,
-    List<GeneVariantMedicament> geneVariantsMedicaments) {
-  List<GeneVariantMedicament> filteredData = [];
+    List<GeneVariantMedication> geneVariantsMedications) {
+  List<GeneVariantMedication> filteredData = [];
 
-  for (var geneVariantMedicament in geneVariantsMedicaments) {
+  for (var geneVariantMedication in geneVariantsMedications) {
     for (var geneVariant in geneVariantList) {
-      if (geneVariant.geneVariant == geneVariantMedicament.geneVariant) {
-        filteredData.add(geneVariantMedicament);
+      if (geneVariant.geneVariant == geneVariantMedication.geneVariant) {
+        filteredData.add(geneVariantMedication);
         break;
       }
     }
@@ -94,10 +93,10 @@ Future<Map<String, dynamic>?> getInformation(
     }
   } else {
     try {
-      List<GeneVariantMedicament> geneVariantsMedicaments =
-          await loadGeneVariantsMedicaments();
+      List<GeneVariantMedication> geneVariantsMedications =
+          await loadGeneVariantsMedications();
 
-      for (var medicine in geneVariantsMedicaments) {
+      for (var medicine in geneVariantsMedications) {
         if (searchObject.toString() == medicine.drugs.toString()) {
           return {
             'information': medicine.effectOnDrugResponse.join(','),
@@ -114,11 +113,12 @@ Future<Map<String, dynamic>?> getInformation(
     }
   }
 }
-  Future<void> launchURL(String link) async {
-    final Uri url = Uri.parse(link);
-    if (await launchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+
+Future<void> launchURL(String link) async {
+  final Uri url = Uri.parse(link);
+  if (await launchUrl(url)) {
+    await launchUrl(url);
+  } else {
+    throw 'Could not launch $url';
   }
+}

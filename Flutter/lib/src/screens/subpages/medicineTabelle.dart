@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constants/styles.dart';
-import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
+import 'package:mobile_app_for_public_health/src/data/genome_variant_medication.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
 import '../../constants/general_functions.dart';
 import 'package:mobile_app_for_public_health/src/screens/subpages/MedicineDescription.dart';
@@ -14,57 +14,59 @@ class MedicinePage extends StatefulWidget {
 }
 
 class MedicinePageState extends State<MedicinePage> {
-  late final List<GeneVariantMedicament> geneVariantsMedicaments;
+  late final List<GeneVariantMedication> geneVariantsMedications;
   late final List<GeneVariant> geneVariantList;
   List<dynamic> searchData = [];
   final searchController = TextEditingController();
-  late final List<GeneVariantMedicament> filteredMedicaments;
+  late final List<GeneVariantMedication> filteredMedications;
   @override
   void initState() {
     super.initState();
     loadGeneVariants().then((variants) {
       setState(() {
         geneVariantList = variants;
-        filteredMedicaments= filterGeneVariantsMedicaments(geneVariantList, geneVariantsMedicaments);
-        searchData = filteredMedicaments;
+        filteredMedications = filterGeneVariantsMedications(
+            geneVariantList, geneVariantsMedications);
+        searchData = filteredMedications;
       });
     });
-    loadGeneVariantsMedicaments().then((variants) {
+    loadGeneVariantsMedications().then((variants) {
       setState(() {
-        geneVariantsMedicaments = variants;
-        filteredMedicaments= filterGeneVariantsMedicaments(geneVariantList, geneVariantsMedicaments);
-        searchData = filteredMedicaments;
+        geneVariantsMedications = variants;
+        filteredMedications = filterGeneVariantsMedications(
+            geneVariantList, geneVariantsMedications);
+        searchData = filteredMedications;
       });
     });
-  
   }
-  
+
   @override
   void dispose() {
     searchController.dispose();
     super.dispose();
   }
 
-void _onSearchTextChanged(String text) {
-  setState(() {
-    searchData = text.isEmpty
-        ? filteredMedicaments
-        : filteredMedicaments
-            .where((item) =>
-                item.geneVariant.toLowerCase().contains(text.toLowerCase()) ||
-                item.drugs
-                    .any((drug) => drug.toLowerCase().contains(text.toLowerCase())))
-            .toList();
-  });
-}
+  void _onSearchTextChanged(String text) {
+    setState(() {
+      searchData = text.isEmpty
+          ? filteredMedications
+          : filteredMedications
+              .where((item) =>
+                  item.geneVariant.toLowerCase().contains(text.toLowerCase()) ||
+                  item.drugs.any((drug) =>
+                      drug.toLowerCase().contains(text.toLowerCase())))
+              .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<GeneVariantMedicament> filteredMedicaments =
-        filterGeneVariantsMedicaments(geneVariantList, geneVariantsMedicaments);
+    List<GeneVariantMedication> filteredMedications =
+        filterGeneVariantsMedications(geneVariantList, geneVariantsMedications);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'List of Medicaments',
+          'List of Medications',
           style: Theme.of(context)
               .textTheme
               .titleSmall
@@ -85,14 +87,14 @@ void _onSearchTextChanged(String text) {
               margin: EdgeInsets.only(top: 20.0, bottom: 0.0),
               height: 50.0,
               child: TextField(
-                controller:searchController,
+                controller: searchController,
                 decoration: InputDecoration(
-                hintText: 'Search...',
-                hintStyle: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(fontSize: 14),
-                border:OutlineInputBorder(),
+                  hintText: 'Search...',
+                  hintStyle: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(fontSize: 14),
+                  border: OutlineInputBorder(),
                 ),
                 onChanged: _onSearchTextChanged,
               ),
@@ -117,7 +119,8 @@ void _onSearchTextChanged(String text) {
                 scrollDirection: Axis.horizontal,
                 child: DataTable(
                   columnSpacing: 16.0, // Adjust the spacing between columns
-                  headingRowColor: MaterialStateColor.resolveWith((states) => primaryColor), // Header background color
+                  headingRowColor: MaterialStateColor.resolveWith(
+                      (states) => primaryColor), // Header background color
                   headingRowHeight: 70.0,
                   //horizontalMargin: 100.0,
                   columns: [
@@ -136,24 +139,26 @@ void _onSearchTextChanged(String text) {
                         style: Theme.of(context)
                             .textTheme
                             .titleSmall
-                            ?.copyWith(fontSize: 14,  color: Colors.white),
+                            ?.copyWith(fontSize: 14, color: Colors.white),
                       ),
                     ),
                   ],
                   rows: searchData
                       .map(
-                        (filteredMedicaments) => DataRow(
+                        (filteredMedications) => DataRow(
                           cells: [
                             DataCell(
                               GestureDetector(
                                 onTap: () {
                                   // Navigate to the subpage with the medicine name
-                                  Get.to(MedicineDescription(drugs: filteredMedicaments.drugs));
+                                  Get.to(MedicineDescription(
+                                      drugs: filteredMedications.drugs));
                                 },
                                 child: Container(
-                                  width: 150, // Set the max width for the first column
+                                  width:
+                                      150, // Set the max width for the first column
                                   child: Text(
-                                    filteredMedicaments.geneVariant,
+                                    filteredMedications.geneVariant,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall
@@ -166,24 +171,26 @@ void _onSearchTextChanged(String text) {
                               GestureDetector(
                                 onTap: () {
                                   // Navigate to the subpage with the medicine name
-                                  Get.to(MedicineDescription(drugs: filteredMedicaments.drugs));
+                                  Get.to(MedicineDescription(
+                                      drugs: filteredMedications.drugs));
                                 },
-                              child:Container(
-                                width: 150, // Set the max width for the second column
-                                child: Text(
-                                  filteredMedicaments.drugs is List
-                                      ? (filteredMedicaments.drugs
-                                              as List<String>)
-                                          .join(", ")
-                                      : filteredMedicaments.drugs.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(fontSize: 13),
+                                child: Container(
+                                  width:
+                                      150, // Set the max width for the second column
+                                  child: Text(
+                                    filteredMedications.drugs is List
+                                        ? (filteredMedications.drugs
+                                                as List<String>)
+                                            .join(", ")
+                                        : filteredMedications.drugs.toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(fontSize: 13),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
                           ],
                         ),
                       )

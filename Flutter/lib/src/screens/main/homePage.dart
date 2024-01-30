@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:mobile_app_for_public_health/src/screens/subpages/medicineTabelle.dart';
 import '../../constants/styles.dart';
 import '../../constants/img_path.dart';
-import 'package:mobile_app_for_public_health/src/data/genome_variant_medicament.dart';
+import 'package:mobile_app_for_public_health/src/data/genome_variant_medication.dart';
 import 'package:mobile_app_for_public_health/src/data/genome_variant.dart';
 import '../../constants/general_functions.dart';
 import 'package:mobile_app_for_public_health/src/screens/subpages/genomeDescription.dart';
@@ -17,11 +17,11 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  late final List<GeneVariantMedicament> geneVariantsMedicaments;
+  late final List<GeneVariantMedication> geneVariantsMedications;
   late final List<GeneVariant> geneVariantList;
   List<dynamic> searchData = [];
   final searchController = TextEditingController();
-  late final List<GeneVariantMedicament> filteredMedicaments;
+  late final List<GeneVariantMedication> filteredMedications;
 
   @override
   void initState() {
@@ -30,17 +30,17 @@ class HomePageState extends State<HomePage> {
     loadGeneVariants().then((variants) {
       setState(() {
         geneVariantList = variants;
-        filteredMedicaments = filterGeneVariantsMedicaments(
-            geneVariantList, geneVariantsMedicaments);
-        searchData = filteredMedicaments;
+        filteredMedications = filterGeneVariantsMedications(
+            geneVariantList, geneVariantsMedications);
+        searchData = filteredMedications;
       });
     });
-    loadGeneVariantsMedicaments().then((variants) {
+    loadGeneVariantsMedications().then((variants) {
       setState(() {
-        geneVariantsMedicaments = variants;
-        filteredMedicaments = filterGeneVariantsMedicaments(
-            geneVariantList, geneVariantsMedicaments);
-        searchData = filteredMedicaments;
+        geneVariantsMedications = variants;
+        filteredMedications = filterGeneVariantsMedications(
+            geneVariantList, geneVariantsMedications);
+        searchData = filteredMedications;
       });
     });
   }
@@ -54,8 +54,8 @@ class HomePageState extends State<HomePage> {
   void _onSearchTextChanged(String text) {
     setState(() {
       searchData = text.isEmpty
-          ? filteredMedicaments
-          : filteredMedicaments
+          ? filteredMedications
+          : filteredMedications
               .where((item) =>
                   item.geneVariant.toLowerCase().contains(text.toLowerCase()) ||
                   item.drugs.any((drug) =>
@@ -166,7 +166,8 @@ class HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 child: Row(
-                                  mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       geneVariantList[i].geneVariant,
@@ -180,12 +181,17 @@ class HomePageState extends State<HomePage> {
                                     Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(8.0), 
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
-                                      padding: EdgeInsets.only(top:8, bottom:8, right:10, left:10),
+                                      padding: EdgeInsets.only(
+                                          top: 8,
+                                          bottom: 8,
+                                          right: 10,
+                                          left: 10),
                                       child: FaIcon(
                                         FontAwesomeIcons.angleRight,
-                                        color:primaryColor, 
+                                        color: primaryColor,
                                         size: 15.0,
                                       ),
                                     ),
@@ -198,7 +204,7 @@ class HomePageState extends State<HomePage> {
                     },
                   ),
                 ),
-                if (filteredMedicaments.isEmpty)
+                if (filteredMedications.isEmpty)
                   Text(
                     'No genetic variations found',
                     style: Theme.of(context).textTheme.titleSmall,
@@ -237,7 +243,7 @@ class HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'List of Medicaments',
+                                'List of Medications',
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleSmall
@@ -250,16 +256,14 @@ class HomePageState extends State<HomePage> {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
-                                padding: EdgeInsets.only(top:8, bottom:8, right:10, left:10),
+                                padding: EdgeInsets.only(
+                                    top: 8, bottom: 8, right: 10, left: 10),
                                 child: FaIcon(
                                   FontAwesomeIcons.angleRight,
                                   color: primaryColor,
                                 ),
                               ),
-                            ]
-                          )
-                        )
-                      ),
+                            ]))),
               ],
             ),
           ),
