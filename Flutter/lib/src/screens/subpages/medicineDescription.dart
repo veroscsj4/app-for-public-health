@@ -22,7 +22,8 @@ class MedicineDescriptionState extends State<MedicineDescription> {
 
   Future<void> fetchData() async {
     try {
-      Map<String, dynamic>? result = await getInformation(widget.drugs, 'drugs');
+      Map<String, dynamic>? result =
+          await getInformation(widget.drugs, 'drugs');
       information = Future.value(result?['information']?.toString());
 
       setState(() {});

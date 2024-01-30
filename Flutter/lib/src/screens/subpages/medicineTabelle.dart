@@ -135,7 +135,7 @@ class MedicinePageState extends State<MedicinePage> {
                     ),
                     DataColumn(
                       label: Text(
-                        'Medikamente',
+                        'Medication',
                         style: Theme.of(context)
                             .textTheme
                             .titleSmall
