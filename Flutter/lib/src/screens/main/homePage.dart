@@ -51,19 +51,6 @@ class HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  void _onSearchTextChanged(String text) {
-    setState(() {
-      searchData = text.isEmpty
-          ? filteredMedications
-          : filteredMedications
-              .where((item) =>
-                  item.geneVariant.toLowerCase().contains(text.toLowerCase()) ||
-                  item.drugs.any((drug) =>
-                      drug.toLowerCase().contains(text.toLowerCase())))
-              .toList();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
